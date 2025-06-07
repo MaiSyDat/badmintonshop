@@ -1,0 +1,5 @@
+@include('user.component.head')
+@include('user.component.nav')
+@include('user.component.slider')
+@include('user.index')
+@include('user.component.footer')

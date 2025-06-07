@@ -1,0 +1,46 @@
+:root {
+    --header-height: 56px;
+
+    /* color */
+    --primary-one: #778df0;
+    --primary-two: #c48ff9;
+    --bg-primary: linear-gradient(135deg, #667eea 0%, #b185dd 100%);
+    --light: #f6f9fe;
+    --title-color: #2c3e50;
+    --text-color: #6b7280;
+    --body-color: #fafdff;
+
+    /* text style */
+    --primary-font: "Roboto", sans-serif;
+    --font-normal: 500;
+    --font-bold: 600;
+
+    /* .5rem = 8px, 1rem = 16px */
+
+    --normal-size: 16px;
+    --small-size: 14px;
+
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: var(--primary-font);
+    font-size: var(--normal-size);
+    color: var(--text-color);
+    transition: 0.3s;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
