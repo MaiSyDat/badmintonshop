@@ -1,5 +1,6 @@
 @include('user.component.head')
 @include('user.component.nav')
-@include('user.component.slider')
-@include('user.index')
+<main>
+    @yield('main')
+</main>
 @include('user.component.footer')

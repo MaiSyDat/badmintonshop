@@ -56,3 +56,17 @@ const removeStyle = () => {
         });
     }
 };
+
+// Search
+const search = document.getElementById("search"),
+    searchBtn = document.getElementById("search-btn"),
+    searchClose = document.getElementById("search-close");
+
+searchBtn.addEventListener("click", () => {
+    console.log("1");
+    search.classList.add("show-search");
+});
+
+searchClose.addEventListener("click", () => {
+    search.classList.remove("show-search");
+});

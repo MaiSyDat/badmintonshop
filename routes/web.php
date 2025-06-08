@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -11,11 +12,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// ADMIN
-Route::prefix('admin')->name('admin.')->group(function () {
+// ADMIN & STAFF Routes
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,staff'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
-    Route::resource('account', AccountController::class);
+    route::resource('roles', RoleController::class);
+
+    Route::resource('account', AccountController::class)->middleware('role:admin');
+
     Route::resource('categories', CategoriesController::class);
 });
 

@@ -108,12 +108,12 @@
                                             <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
                                                 id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
-                                                2022
+                                                2025
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                                                <a class="dropdown-item" href="javascript:void(0);">2021</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">2020</a>
-                                                <a class="dropdown-item" href="javascript:void(0);">2019</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">2024</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">2023</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">2022</a>
                                             </div>
                                         </div>
                                     </div>

@@ -3,65 +3,68 @@
     Quản lý tài khoản
 @endsection
 @section('main')
-    <!-- Main Content -->
     <div class="col-md-12 main-content p-4">
-        <!-- Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h2 class="mb-1">Quản lý người dùng</h2>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                         <li class="breadcrumb-item active">Quản lý người dùng</li>
                     </ol>
                 </nav>
             </div>
             <a href="{{ route('admin.account.create') }}" class="btn btn-primary">
-                <i class="bx bx-plus"></i>Thêm người dùng
+                <i class="bx bx-plus"></i> Thêm người dùng
             </a>
         </div>
 
-        <!-- Search and Filter Section -->
         <div class="search-section">
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label class="form-label">Tìm kiếm</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-search"></i></span>
-                        <input type="text" class="form-control" placeholder="Tìm theo tên, email...">
+            <form action="{{ route('admin.account.index') }}" method="GET">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Tìm kiếm</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control" name="search" placeholder="Tìm theo tên, email..."
+                                value="{{ request('search') }}">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Trạng thái</label>
+                        <select class="form-select" name="status">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Hoạt động</option>
+                            <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Không hoạt động
+                            </option>
+                            {{-- <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Chờ duyệt</option> --}}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Chức vụ</label>
+                        <select class="form-select" name="role_id">
+                            <option value="">Tất cả chức vụ</option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->role_id }}"
+                                    {{ request('role_id') == $role->role_id ? 'selected' : '' }}>
+                                    {{ $role->role_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-funnel me-2"></i>Lọc
+                        </button>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <label class="form-label">Trạng thái</label>
-                    <select class="form-select">
-                        <option value="">Tất cả trạng thái</option>
-                        <option value="active">Hoạt động</option>
-                        <option value="inactive">Không hoạt động</option>
-                        <option value="pending">Chờ duyệt</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Chức vụ</label>
-                    <select class="form-select">
-                        <option value="">Tất cả chức vụ</option>
-                        <option value="admin">Quản trị viên</option>
-                        <option value="manager">Quản lý</option>
-                        <option value="user">Người dùng</option>
-                    </select>
-                </div>
-                <div class="col-md-2 d-flex align-items-end">
-                    <button class="btn btn-outline-primary w-100">
-                        <i class="bi bi-funnel me-2"></i>Lọc
-                    </button>
-                </div>
-            </div>
+            </form>
         </div>
 
-        <!-- Users Table -->
-        <div class="card">
+        <div class="card mt-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Danh sách người dùng</h5>
-                <span class="badge bg-secondary">Tổng: 156 người dùng</span>
+                <span class="badge bg-secondary">Tổng: {{ $users->total() }} người dùng</span>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -78,165 +81,93 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-avatar me-3">NT</div>
-                                        <div>
-                                            <div class="fw-semibold">Nguyễn Văn Thành</div>
-                                            <small class="text-muted">ID: #001</small>
+                            @forelse ($users as $key => $user)
+                                <tr>
+                                    <td>{{ $users->firstItem() + $key }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            @php
+                                                $avatarPath = $user->avatar
+                                                    ? asset('storage/' . $user->avatar)
+                                                    : asset('path/to/default_avatar.png');
+                                                $initials = '';
+                                                if ($user->full_name) {
+                                                    $nameParts = explode(' ', $user->full_name);
+                                                    foreach ($nameParts as $part) {
+                                                        $initials .= strtoupper(substr($part, 0, 1));
+                                                    }
+                                                } else {
+                                                    $initials = strtoupper(substr($user->username, 0, 2));
+                                                }
+                                                $initials = substr($initials, 0, 2);
+                                            @endphp
+
+                                            @if ($user->avatar)
+                                                <img src="{{ $avatarPath }}" alt="Avatar"
+                                                    class="user-avatar me-3 rounded-circle"
+                                                    style="width: 40px; height: 40px; object-fit: cover;">
+                                            @else
+                                                <div class="user-avatar me-3 rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                    style="width: 40px; height: 40px; font-size: 14px;">
+                                                    {{ $initials }}
+                                                </div>
+                                            @endif
+                                            <div>
+                                                <div class="fw-semibold">{{ $user->full_name ?? $user->username }}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>thanh.nguyen@email.com</td>
-                                <td>123 Đường ABC, Quận 1, TP.HCM</td>
-                                <td><span class="badge bg-success status-badge">Hoạt động</span></td>
-                                <td><span class="badge bg-primary">Quản trị viên</span></td>
-                                <td class="table-actions">
-                                    <button class="btn btn-sm btn-outline-primary me-1" title="Sửa">
-                                        <i class="bx bx-edit-alt"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger" title="Xóa">
-                                        <i class="bx bx-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-avatar me-3">LH</div>
-                                        <div>
-                                            <div class="fw-semibold">Lê Thị Hương</div>
-                                            <small class="text-muted">ID: #002</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>huong.le@email.com</td>
-                                <td>456 Đường XYZ, Quận 3, TP.HCM</td>
-                                <td><span class="badge bg-success status-badge">Hoạt động</span></td>
-                                <td><span class="badge bg-info">Quản lý</span></td>
-                                <td class="table-actions">
-                                    <button class="btn btn-sm btn-outline-primary me-1" title="Sửa">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger" title="Xóa">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-avatar me-3">TD</div>
-                                        <div>
-                                            <div class="fw-semibold">Trần Minh Đức</div>
-                                            <small class="text-muted">ID: #003</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>duc.tran@email.com</td>
-                                <td>789 Đường DEF, Quận 7, TP.HCM</td>
-                                <td><span class="badge bg-warning status-badge">Chờ duyệt</span></td>
-                                <td><span class="badge bg-secondary">Người dùng</span></td>
-                                <td class="table-actions">
-                                    <button class="btn btn-sm btn-outline-primary me-1" title="Sửa">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger" title="Xóa">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-avatar me-3">PL</div>
-                                        <div>
-                                            <div class="fw-semibold">Phạm Thị Lan</div>
-                                            <small class="text-muted">ID: #004</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>lan.pham@email.com</td>
-                                <td>321 Đường GHI, Quận 5, TP.HCM</td>
-                                <td><span class="badge bg-danger status-badge">Không hoạt động</span></td>
-                                <td><span class="badge bg-secondary">Người dùng</span></td>
-                                <td class="table-actions">
-                                    <button class="btn btn-sm btn-outline-primary me-1" title="Sửa">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger" title="Xóa">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="user-avatar me-3">VK</div>
-                                        <div>
-                                            <div class="fw-semibold">Võ Minh Khang</div>
-                                            <small class="text-muted">ID: #005</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>khang.vo@email.com</td>
-                                <td>654 Đường JKL, Quận 2, TP.HCM</td>
-                                <td><span class="badge bg-success status-badge">Hoạt động</span></td>
-                                <td><span class="badge bg-info">Quản lý</span></td>
-                                <td class="table-actions">
-                                    <button class="btn btn-sm btn-outline-primary me-1" title="Sửa">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger" title="Xóa">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->address ?? 'N/A' }}</td>
+                                    <td>
+                                        @if ($user->is_active)
+                                            <span class="badge bg-success status-badge">Hoạt động</span>
+                                        @else
+                                            <span class="badge bg-danger status-badge">Không hoạt động</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="badge bg-{{ $user->role->role_name === 'Admin' ? 'primary' : ($user->role->role_name === 'Staff' ? 'info' : 'secondary') }}">
+                                            {{ $user->role->role_name ?? 'N/A' }}
+                                        </span>
+                                    </td>
+                                    <td class="table-actions">
+                                        <a href="{{ route('admin.account.edit', $user->user_id) }}"
+                                            class="btn btn-sm btn-outline-primary me-1" title="Sửa">
+                                            <i class="bx bx-edit-alt"></i>
+                                        </a>
+
+                                        {{-- FORM XÓA --}}
+                                        <form action="{{ route('admin.account.destroy', $user->user_id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa"
+                                                onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?');">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
+                                        </form>
+                                        {{-- KẾT THÚC FORM XÓA --}}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">Không có người dùng nào được tìm thấy.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- Pagination -->
         <div class="d-flex justify-content-between align-items-center mt-4">
             <div class="text-muted">
-                Hiển thị 1-5 trong tổng số 156 kết quả
+                Hiển thị {{ $users->firstItem() }} - {{ $users->lastItem() }} trong tổng số {{ $users->total() }} kết quả
             </div>
             <nav aria-label="Phân trang">
-                <ul class="pagination mb-0">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">
-                            <i class="bi bi-chevron-left"></i>
-                        </a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <span class="page-link">...</span>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">32</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="bi bi-chevron-right"></i>
-                        </a>
-                    </li>
-                </ul>
+                {{ $users->links('pagination::bootstrap-5') }}
             </nav>
         </div>
     </div>

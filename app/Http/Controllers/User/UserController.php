@@ -11,7 +11,7 @@ class UserController extends Controller
     public function index()
     {
         $config = $this->config();
-        return view('user.master_latout.main', compact('config'));
+        return view('user.index', compact('config'));
     }
 
     private function config()

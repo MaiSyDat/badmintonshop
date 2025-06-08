@@ -68,15 +68,31 @@
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Quản lý hệ thống</div>
+                @auth
+                    @if (Auth::user()->isAdmin())
+                        <div data-i18n="Layouts">Quản lý hệ thống</div>
+                    @else
+                        <div data-i18n="Layouts">Quản lý cửa hàng</div>
+                    @endif
+                @endauth
             </a>
 
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{ route('admin.account.index') }}" class="menu-link">
-                        <div data-i18n="Without menu">Quản lý người dùng</div>
-                    </a>
-                </li>
+                @auth
+                    @if (Auth::user()->isAdmin())
+                        <li class="menu-item">
+                            <a href="{{ route('admin.account.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">Quản lý người dùng</div>
+                            </a>
+                        </li>
+
+                        <li class="menu-item">
+                            <a href="{{ route('admin.roles.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">Quản lý phân quyền</div>
+                            </a>
+                        </li>
+                    @endif
+                @endauth
                 <li class="menu-item">
                     <a href="{{ route('admin.categories.index') }}" class="menu-link">
                         <div data-i18n="Without navbar">Quản lý danh mục</div>

@@ -19,66 +19,101 @@
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- User -->
-            <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                        <img src="../assets/css/admin/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <div class="avatar avatar-online">
-                                        <img src="../assets/css/admin/img/avatars/1.png" alt
-                                            class="w-px-40 h-auto rounded-circle" />
+            @auth
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                        <div class="avatar avatar-online">
+                            @php
+                                $user = Auth::user();
+                                $initials = '';
+                                if ($user) {
+                                    $nameParts = explode(' ', $user->full_name ?? '');
+                                    foreach ($nameParts as $part) {
+                                        $initials .= strtoupper(substr($part, 0, 1));
+                                    }
+                                    if (!$initials) {
+                                        $initials = strtoupper(substr($user->username ?? '', 0, 2));
+                                    }
+                                    $initials = substr($initials, 0, 2);
+                                }
+                            @endphp
+
+                            <div class="user-avatar me-3 rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                style="width: 40px; height: 40px; font-size: 14px;">
+                                {{ $initials }}
+                            </div>
+
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0 me-3">
+                                        <div class="avatar avatar-online">
+                                            @php
+                                                $user = Auth::user();
+                                                $initials = '';
+                                                if ($user) {
+                                                    $nameParts = explode(' ', $user->full_name ?? '');
+                                                    foreach ($nameParts as $part) {
+                                                        $initials .= strtoupper(substr($part, 0, 1));
+                                                    }
+                                                    if (!$initials) {
+                                                        $initials = strtoupper(substr($user->username ?? '', 0, 2));
+                                                    }
+                                                    $initials = substr($initials, 0, 2);
+                                                }
+                                            @endphp
+
+                                            <div class="user-avatar me-3 rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                                                style="width: 40px; height: 40px; font-size: 14px;">
+                                                {{ $initials }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <span class="fw-semibold d-block">{{ Auth::user()->full_name }}</span>
+                                        <small
+                                            class="text-muted">{{ ucfirst(Auth::user()->role->role_name ?? 'User') }}</small>
                                     </div>
                                 </div>
-                                <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">John Doe</span>
-                                    <small class="text-muted">Admin</small>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="bx bx-user me-2"></i>
-                            <span class="align-middle">My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="bx bx-cog me-2"></i>
-                            <span class="align-middle">Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <span class="d-flex align-items-center align-middle">
-                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                <span class="flex-grow-1 align-middle">Billing</span>
-                                <span
-                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="auth-login-basic.html">
-                            <i class="bx bx-power-off me-2"></i>
-                            <span class="align-middle">Log Out</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <!--/ User -->
+                            </a>
+                        </li>
+                        <li>
+                            <div class="dropdown-divider"></div>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                <i class="bx bx-user me-2"></i>
+                                <span class="align-middle">Hồ sơ</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <i class="bx bx-cog me-2"></i>
+                                <span class="align-middle">Cài đặt</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <div class="dropdown-divider"></div>
+                        </li>
+
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item">
+                                    <i class="bx bx-power-off me-2"></i>
+                                    <span class="align-middle">Đăng xuất</span>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            @endauth
         </ul>
     </div>
 </nav>
