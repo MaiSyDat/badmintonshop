@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('short_description', 500)->nullable()->comment('Mô tả ngắn gọn');
             $table->text('long_description')->nullable()->comment('Mô tả chi tiết');
             $table->decimal('base_price', 10, 2)->comment('Giá cơ bản');
-            $table->unsignedInteger('brand_id')->comment('Khóa ngoại tới bảng brands');
-            $table->unsignedInteger('category_id')->comment('Khóa ngoại tới bảng categories');
+            $table->uuid('brand_id')->comment('Khóa ngoại tới bảng brands');
+            $table->uuid('category_id')->comment('Khóa ngoại tới bảng categories');
             $table->string('main_image_url', 255)->nullable()->comment('URL ảnh đại diện');
             $table->boolean('is_active')->default(true)->comment('Trạng thái hiển thị');
             $table->timestamps();

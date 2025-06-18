@@ -4,23 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Concerns\HasUuids; // Thêm dòng này
+use Illuminate\Database\Eloquent\Concerns\HasUuids; // <-- Đảm bảo dòng này có và được import
 
 class Role extends Model
 {
-    use HasFactory, HasUuids; // Thêm HasUuids vào đây
+    use HasFactory, HasUuids; // <-- Đảm bảo HasUuids được sử dụng ở đây
 
-    protected $primaryKey = 'role_id'; // Đảm bảo đúng tên khóa chính
-    protected $keyType = 'string';
-    public $incrementing = false;
+    protected $primaryKey = 'role_id'; // <-- Khai báo khóa chính
+    protected $keyType = 'string';     // <-- Khóa chính là string (cho UUID)
+    public $incrementing = false;     // <-- Khóa chính không tự tăng (cho UUID)
 
     protected $fillable = [
-        'role_id', // Nếu bạn muốn gán role_id thủ công khi tạo (ít khi xảy ra với UUID)
         'role_name',
         'description',
     ];
 
-    // Một vai trò có nhiều người dùng
+    // 🔑 Quan trọng: Cho Route Model Binding dùng role_id thay vì id
+    public function getRouteKeyName()
+    {
+        return 'role_id'; // <-- Laravel sẽ dùng 'role_id' để tìm model trong route
+    }
+
     public function users()
     {
         return $this->hasMany(User::class, 'role_id', 'role_id');

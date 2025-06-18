@@ -1,6 +1,6 @@
 @extends('admin.master_layout.main')
 @section('title')
-    Trang chủ
+    Quản ký quyền
 @endsection
 
 @section('main')

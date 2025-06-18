@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('variant_attributes', function (Blueprint $table) {
-            $table->increments('attribute_id'); // Khóa chính tự tăng
+            $table->uuid('attribute_id')->primary(); // Khóa chính UUID
             $table->string('attribute_name', 100)->unique()->comment('Tên thuộc tính (Color, Weight, etc.)');
             $table->timestamps();
         });

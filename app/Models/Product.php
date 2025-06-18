@@ -4,27 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids; // Thêm dòng này
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids; // Thêm HasUuids vào đây
 
     protected $primaryKey = 'product_id';
-    protected $keyType = 'string';
     public $incrementing = false;
-
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($model) {
-            if (empty($model->{$model->getKeyName()})) {
-                $model->{$model->getKeyName()} = (string) \Illuminate\Support\Str::uuid();
-            }
-        });
-    }
+    protected $keyType = 'string';
 
     protected $fillable = [
-        'product_id',
         'product_name',
         'short_description',
         'long_description',
@@ -33,39 +23,28 @@ class Product extends Model
         'category_id',
         'main_image_url',
         'is_active',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'gallery_image_urls' // Thêm gallery_image_urls
     ];
 
+    // Cast gallery_image_urls to array if you store it as JSON
     protected $casts = [
-        'is_active' => 'boolean',
+        'gallery_image_urls' => 'array',
     ];
 
-    // Mối quan hệ với Category: Một Product thuộc về một Category
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id', 'category_id');
-    }
-
-    // Mối quan hệ với Brand: Một Product thuộc về một Brand
     public function brand()
     {
-        return $this->belongsTo(Brand::class, 'brand_id', 'brand_id');
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
-
-    // Mối quan hệ với ProductVariants: Một Product có nhiều ProductVariants
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
     public function variants()
     {
-        return $this->hasMany(ProductVariant::class, 'product_id', 'product_id');
+        return $this->hasMany(ProductVariant::class, 'product_id');
     }
-
-    // Mối quan hệ với Reviews: Một Product có nhiều Reviews
-    public function reviews()
-    {
-        return $this->hasMany(Review::class, 'product_id', 'product_id');
-    }
-
-    // Mối quan hệ với Wishlists: Một Product có nhiều Wishlists
-    public function wishlists()
-    {
-        return $this->hasMany(Wishlist::class, 'product_id', 'product_id');
-    }
+    // Thêm các mối quan hệ khác nếu có
 }

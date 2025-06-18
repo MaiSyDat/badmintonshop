@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('brands', function (Blueprint $table) {
-            $table->increments('brand_id'); // Khóa chính tự tăng
+            $table->uuid('brand_id')->primary(); // Khóa chính dạng UUID
             $table->string('brand_name', 100)->unique()->comment('Tên thương hiệu');
             $table->string('brand_logo_url', 255)->nullable()->comment('URL logo thương hiệu');
             $table->timestamps();

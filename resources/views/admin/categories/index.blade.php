@@ -1,143 +1,147 @@
 @extends('admin.master_layout.main')
-@section('title')
-    Quản lý danh mục
-@endsection
+
+@section('title', 'Quản lý danh mục')
+
 @section('main')
-    <!-- Main Content -->
-    <div class="col-md-12 main-content p-4">
-        <!-- Header -->
+    <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h2 class="mb-1">Quản lý danh mục</h2>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Quản lý danh mục</li>
-                    </ol>
-                </nav>
-            </div>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                <i class="bx bx-plus"></i>Thêm danh mục
-            </button>
+            <h1 class="h3 mb-0 text-gray-800">Quản lý danh mục</h1>
+            <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Thêm danh mục
+            </a>
         </div>
 
-        <!-- Search and Filter Section -->
-        <div class="search-section">
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label class="form-label">Tìm kiếm</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-search"></i></span>
-                        <input type="text" class="form-control" placeholder="Tìm theo tên, email...">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <form action="{{ route('admin.categories.index') }}" method="GET" class="row g-3">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search"
+                                placeholder="Tìm kiếm theo tên hoặc slug..." value="{{ request('search') }}">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Trạng thái</label>
-                    <select class="form-select">
-                        <option value="">Tất cả trạng thái</option>
-                        <option value="active">Hoạt động</option>
-                        <option value="inactive">Không hoạt động</option>
-                        <option value="pending">Chờ duyệt</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Chức vụ</label>
-                    <select class="form-select">
-                        <option value="">Tất cả chức vụ</option>
-                        <option value="admin">Quản trị viên</option>
-                        <option value="manager">Quản lý</option>
-                        <option value="user">Người dùng</option>
-                    </select>
-                </div>
-                <div class="col-md-2 d-flex align-items-end">
-                    <button class="btn btn-outline-primary w-100">
-                        <i class="bi bi-funnel me-2"></i>Lọc
-                    </button>
-                </div>
+                    {{-- Các trường search và filter này phụ thuộc vào việc bạn có thêm cột slug và status vào DB không --}}
+                    <div class="col-md-3">
+                        <select class="form-select" name="status">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Đang hoạt động</option>
+                            <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Đã ẩn</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-funnel"></i> Lọc
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
 
-        <!-- Users Table -->
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Danh sách danh mục</h5>
-                <span class="badge bg-secondary">Tổng: 156 danh mục</span>
-            </div>
-            <div class="card-body p-0">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                @if (session('success'))
+                    <div class="alert alert-success mx-3 mt-3">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger mx-3 mt-3">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead class="table-light">
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
-                                <th width="5%">STT</th>
-                                <th width="15%">Tên</th>
-                                <th width="20%">Trạng thái</th>
-                                <th width="20%">Ngày tạo</th>
-                                <th width="15%">Thao tác</th>
+                                <th>STT</th>
+                                <th>Tên danh mục</th>
+                                <th>Mô tả</th>
+                                <th>Ngày tạo</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div>
-                                            <div class="fw-semibold">Vợt cầu long cho người mới</div>
-                                            <small class="text-muted">ID: #001</small>
+                            @forelse($categories as $key => $category)
+                                <tr>
+                                    <td>{{ $categories->firstItem() + $key }}</td>
+                                    <td>{{ $category->category_name }}</td>
+                                    <td>{{ $category->description }}</td>
+                                    <td>{{ $category->created_at->format('d/m/Y H:i') }}</td> {{-- Hiển thị ngày tạo --}}
+                                    <td>
+                                        <div class="btn-group">
+                                            {{-- Link Sửa: $category tự động dùng category_id vì đã cấu hình getRouteKeyName() --}}
+                                            <a href="{{ route('admin.categories.edit', $category) }}"
+                                                class="btn btn-sm btn-outline-primary me-1" title="Sửa">
+                                                <i class="bx bx-edit-alt"></i>
+                                            </a>
+                                            {{-- FORM XÓA DANH MỤC --}}
+                                            <form action="{{ route('admin.categories.destroy', $category->category_id) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?');">
+                                                    <i class="bx bx-trash"></i>
+                                                </button>
+                                            </form>
+                                            {{-- KẾT THÚC FORM XÓA DANH MỤC --}}
                                         </div>
-                                    </div>
-                                </td>
-                                <td><span class="badge bg-success status-badge">Hoạt động</span></td>
-                                <td><span class="created_at">10/20/2025</span></td>
-                                <td class="table-actions">
-                                    <button class="btn btn-sm btn-outline-primary me-1" title="Sửa">
-                                        <i class="bx bx-edit-alt"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-danger" title="Xóa">
-                                        <i class="bx bx-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center py-4"> {{-- Đảm bảo colspan đúng số cột --}}
+                                        <div class="empty-state">
+                                            <i class="bi bi-emoji-frown fs-1"></i>
+                                            <p class="mt-2">Không tìm thấy danh mục nào</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
 
-        <!-- Pagination -->
-        <div class="d-flex justify-content-between align-items-center mt-4">
-            <div class="text-muted">
-                Hiển thị 1-5 trong tổng số 156 kết quả
+                <div class="d-flex justify-content-end mt-4">
+                    {{ $categories->links() }}
+                </div>
             </div>
-            <nav aria-label="Phân trang">
-                <ul class="pagination mb-0">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">
-                            <i class="bi bi-chevron-left"></i>
-                        </a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <span class="page-link">...</span>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">32</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="bi bi-chevron-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
 @endsection
-ư
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/categories/index.css') }}">
+@endpush
+
+@push('scripts')
+    <script>
+        function deleteCategory(categoryId) {
+            if (confirm('Bạn có chắc chắn muốn xóa danh mục này?')) {
+                fetch(`/admin/categories/${categoryId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            window.location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Có lỗi xảy ra khi xóa danh mục');
+                    });
+            }
+        }
+    </script>
+@endpush

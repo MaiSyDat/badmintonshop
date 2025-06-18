@@ -6,10 +6,10 @@ document.querySelectorAll(".wishlist-btn").forEach((btn) => {
         const svg = this.querySelector("svg");
         if (svg.style.fill === "red") {
             svg.style.fill = "none";
-            svg.style.stroke = "#666"; // Màu khi bỏ yêu thích
+            svg.style.stroke = "#666";
         } else {
             svg.style.fill = "red";
-            svg.style.stroke = "red"; // Màu khi đã yêu thích
+            svg.style.stroke = "red";
         }
     });
 });
@@ -19,13 +19,11 @@ document.querySelectorAll(".wishlist-btn").forEach((btn) => {
 // =============================
 document.querySelectorAll(".color-dot").forEach((dot) => {
     dot.addEventListener("click", function () {
-        // Reset tất cả chấm màu khác về viền mặc định
         this.parentNode.querySelectorAll(".color-dot").forEach((d) => {
             d.style.borderColor = "#e0e0e0";
             d.style.borderWidth = "2px";
         });
 
-        // Chấm màu được chọn sẽ có viền đậm hơn
         this.style.borderColor = "#333";
         this.style.borderWidth = "3px";
     });
@@ -41,66 +39,51 @@ document
     });
 
 // =============================
-// 4. SLIDER TỰ ĐỘNG VÀ NÚT ĐIỀU HƯỚNG
+// 4. SLIDER TRONG TRANG HOME
 // =============================
-
-let currentSlideIndex = 0;
-let slides = document.querySelectorAll(".slide");
-let dots = document.querySelectorAll(".dot");
+let currentHomeSlideIndex = 0;
+let homeSlides = document.querySelectorAll(".slide");
+let homeDots = document.querySelectorAll(".dot");
 let sliderWrapper = document.getElementById("sliderWrapper");
 
-// Hiển thị slide theo chỉ số
-function showSlide(index) {
-    // Xóa class active của tất cả các dot
-    dots.forEach((dot) => dot.classList.remove("active"));
-
-    // Thêm class active vào dot hiện tại
-    if (dots[index]) {
-        dots[index].classList.add("active");
+function showHomeSlide(index) {
+    homeDots.forEach((dot) => dot.classList.remove("active"));
+    if (homeDots[index]) {
+        homeDots[index].classList.add("active");
     }
 
-    // Dịch chuyển slide
     sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
-    currentSlideIndex = index;
+    currentHomeSlideIndex = index;
 }
 
-// Chuyển slide theo hướng trái (-1) hoặc phải (+1)
-// Cập nhật trong hàm changeSlide()
-function changeSlide(direction) {
-    currentSlideIndex += direction;
+function changeHomeSlide(direction) {
+    currentHomeSlideIndex += direction;
 
-    // Nếu vượt slide cuối thì quay lại slide đầu
-    if (currentSlideIndex >= slides.length) {
-        currentSlideIndex = 0;
+    if (currentHomeSlideIndex >= homeSlides.length) {
+        currentHomeSlideIndex = 0;
     }
 
-    // Nếu nhỏ hơn slide đầu thì về slide cuối
-    if (currentSlideIndex < 0) {
-        currentSlideIndex = slides.length - 1;
+    if (currentHomeSlideIndex < 0) {
+        currentHomeSlideIndex = homeSlides.length - 1;
     }
 
-    showSlide(currentSlideIndex);
+    showHomeSlide(currentHomeSlideIndex);
 }
 
-// Hiển thị slide cụ thể theo chỉ số dot (nút tròn)
-function currentSlide(index) {
-    showSlide(index - 1);
+function currentHomeSlide(index) {
+    showHomeSlide(index);
 }
 
-// Auto chạy slide sau mỗi 5 giây
 setInterval(() => {
-    changeSlide(1);
+    changeHomeSlide(1);
 }, 3000);
 
-// =============================
-// 5. NÚT ĐIỀU HƯỚNG SLIDER (gắn từ JS, không dùng onclick)
-// =============================
 document
     .querySelector(".slider-nav.prev")
-    ?.addEventListener("click", () => changeSlide(-1));
+    ?.addEventListener("click", () => changeHomeSlide(-1));
 document
     .querySelector(".slider-nav.next")
-    ?.addEventListener("click", () => changeSlide(1));
+    ?.addEventListener("click", () => changeHomeSlide(1));
 
 // =============================
 // 6. CLICK VÀO THẺ DANH MỤC
@@ -117,7 +100,7 @@ document.querySelectorAll(".category-card").forEach((card) => {
 // =============================
 document.querySelectorAll(".brand-btn").forEach((btn) => {
     btn.addEventListener("click", function (e) {
-        e.stopPropagation(); // Ngăn sự kiện lan sang phần tử cha
+        e.stopPropagation();
         const brandName =
             this.closest(".slide").querySelector(".brand-name").textContent;
         alert(`Khám phá sản phẩm ${brandName}!`);

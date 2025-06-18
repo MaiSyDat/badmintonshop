@@ -56,7 +56,7 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        <!-- Dashboard -->
+        <!-- Dashboard - Hiển thị cho tất cả người dùng đã đăng nhập -->
         <li class="menu-item">
             <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
@@ -64,56 +64,68 @@
             </a>
         </li>
 
-        <!-- Layouts -->
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                @auth
-                    @if (Auth::user()->isAdmin())
+        @auth
+            {{-- Quản lý hệ thống (Chỉ dành cho Admin) --}}
+            @if (Auth::user()->isAdmin())
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-server"></i>
                         <div data-i18n="Layouts">Quản lý hệ thống</div>
-                    @else
-                        <div data-i18n="Layouts">Quản lý cửa hàng</div>
-                    @endif
-                @endauth
-            </a>
-
-            <ul class="menu-sub">
-                @auth
-                    @if (Auth::user()->isAdmin())
-                        <li class="menu-item">
-                            <a href="{{ route('admin.account.index') }}" class="menu-link">
-                                <div data-i18n="Without menu">Quản lý người dùng</div>
-                            </a>
-                        </li>
-
+                    </a>
+                    <ul class="menu-sub">
                         <li class="menu-item">
                             <a href="{{ route('admin.roles.index') }}" class="menu-link">
-                                <div data-i18n="Without menu">Quản lý phân quyền</div>
+                                <div data-i18n="Without menu">Quản lý Phân quyền</div>
                             </a>
                         </li>
-                    @endif
-                @endauth
-                <li class="menu-item">
-                    <a href="{{ route('admin.categories.index') }}" class="menu-link">
-                        <div data-i18n="Without navbar">Quản lý danh mục</div>
-                    </a>
+                        <li class="menu-item">
+                            <a href="{{ route('admin.account.index') }}" class="menu-link">
+                                <div data-i18n="Without menu">Quản lý Người dùng</div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="menu-item">
-                    <a href="layouts-container.html" class="menu-link">
-                        <div data-i18n="Container">Quản lý sản phẩm</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="layouts-fluid.html" class="menu-link">
-                        <div data-i18n="Fluid">Quản lý thanh toán</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="layouts-blank.html" class="menu-link">
-                        <div data-i18n="Blank">Quản lý đơn hàng</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+            @endif
+
+            {{-- Quản lý Cửa hàng (Hiển thị cho cả Admin và Staff) --}}
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-store"></i>
+                    <div data-i18n="Layouts">Quản lý Cửa hàng</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('admin.categories.index') }}" class="menu-link">
+                            <div data-i18n="Without navbar">Quản lý Danh mục</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('admin.brands.index') }}" class="menu-link">
+                            <div data-i18n="Without navbar">Quản lý Thương hiệu</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('admin.product.index') }}" class="menu-link">
+                            <div data-i18n="Container">Quản lý Sản phẩm</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('admin.coupon.index') }}" class="menu-link"> {{-- Giữ nguyên link placeholder --}}
+                            <div data-i18n="Fluid">Quản lý Mã giảm giá</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="layouts-blank.html" class="menu-link"> {{-- Giữ nguyên link placeholder --}}
+                            <div data-i18n="Blank">Quản lý Đơn hàng</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="layouts-blank.html" class="menu-link"> {{-- Giữ nguyên link placeholder --}}
+                            <div data-i18n="Blank">Quản lý Đánh giá</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endauth
     </ul>
 </aside>

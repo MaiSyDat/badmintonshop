@@ -68,6 +68,16 @@
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
+                    @if (session('success'))
+                        <div class="alert alert-success mx-3 mt-3">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger mx-3 mt-3">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <table class="table table-hover mb-0">
                         <thead class="table-light">
                             <tr>

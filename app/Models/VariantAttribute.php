@@ -4,20 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class VariantAttribute extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $primaryKey = 'attribute_id';
-    public $incrementing = true;
-    protected $fillable = ['attribute_name'];
+    public $incrementing = false;
+    protected $keyType = 'string';
 
-    /**
-     * Get the attribute values for the variant attribute.
-     */
+    protected $fillable = [
+        'attribute_name'
+    ];
+
     public function values()
     {
-        return $this->hasMany(VariantAttributeValue::class, 'attribute_id', 'attribute_id');
+        return $this->hasMany(VariantAttributeValue::class, 'attribute_id');
     }
 }

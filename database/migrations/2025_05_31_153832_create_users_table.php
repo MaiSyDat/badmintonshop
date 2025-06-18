@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('full_name')->nullable()->comment('Họ và tên đầy đủ');
             $table->string('phone_number', 20)->nullable()->comment('Số điện thoại');
             $table->string('address', 500)->nullable()->comment('Địa chỉ mặc định');
-            $table->unsignedInteger('role_id')->comment('Khóa ngoại tới bảng roles');
+            $table->uuid('role_id');
             $table->boolean('is_active')->default(true)->comment('Trạng thái tài khoản');
             $table->rememberToken(); // Để ghi nhớ đăng nhập
             $table->timestamps(); // created_at, updated_at

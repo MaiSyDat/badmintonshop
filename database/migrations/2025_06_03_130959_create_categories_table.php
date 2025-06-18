@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->increments('category_id'); // Khóa chính tự tăng
+            $table->uuid('category_id')->primary(); // Dùng UUID làm khóa chính
             $table->string('category_name', 100)->unique()->comment('Tên danh mục');
             $table->string('description', 500)->nullable()->comment('Mô tả danh mục');
             $table->timestamps();

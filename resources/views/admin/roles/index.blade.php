@@ -20,26 +20,24 @@
         </div>
 
         <div class="search-section">
-            <form action="{{ route('admin.roles.index') }}" method="GET">
-                <div class="row g-3">
-                    <div class="col-md-6"> {{-- Dùng col-md-6 để rộng hơn cho tìm kiếm --}}
-                        <label class="form-label">Tìm kiếm</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-search"></i></span>
-                            <input type="text" class="form-control" name="search"
-                                placeholder="Tìm theo tên quyền, mô tả..." value="{{ request('search') }}">
-                        </div>
+            <form action="{{ route('admin.roles.index') }}" method="GET" class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Tìm kiếm</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="text" class="form-control" name="search" placeholder="Tìm theo tên quyền..."
+                            value="{{ request('search') }}">
                     </div>
-                    <div class="col-md-2 d-flex align-items-end"> {{-- Nút lọc --}}
-                        <button type="submit" class="btn btn-outline-primary w-100">
-                            <i class="bi bi-funnel me-2"></i>Lọc
-                        </button>
-                    </div>
-                    <div class="col-md-2 d-flex align-items-end"> {{-- Nút Reset bộ lọc --}}
-                        <a href="{{ route('admin.roles.index') }}" class="btn btn-outline-secondary w-100">
-                            <i class="bi bi-x-circle me-2"></i>Xóa lọc
-                        </a>
-                    </div>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-outline-primary w-100">
+                        <i class="bi bi-funnel me-2"></i>Lọc
+                    </button>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <a href="{{ route('admin.roles.index') }}" class="btn btn-outline-secondary w-100">
+                        <i class="bi bi-x-circle me-2"></i>Xóa lọc
+                    </a>
                 </div>
             </form>
         </div>
@@ -52,23 +50,22 @@
             <div class="card-body p-0">
                 <div class="table-responsive">
                     @if (session('success'))
-                        <div class="alert alert-success mx-3 mt-3"> {{-- Thêm margin/padding cho đẹp --}}
+                        <div class="alert alert-success mx-3 mt-3">
                             {{ session('success') }}
                         </div>
                     @endif
                     @if (session('error'))
-                        <div class="alert alert-danger mx-3 mt-3"> {{-- Thêm margin/padding cho đẹp --}}
+                        <div class="alert alert-danger mx-3 mt-3">
                             {{ session('error') }}
                         </div>
                     @endif
                     <table class="table table-hover mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th width="5%">STT</th>
+                                <th width="10%">STT</th>
                                 <th width="20%">Tên Quyền</th>
-                                <th width="40%">Mô tả</th>
-                                <th width="15%">Ngày tạo</th>
-                                <th width="20%">Hành động</th>
+                                <th width="30%">Ngày tạo</th>
+                                <th width="10%">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,7 +73,6 @@
                                 <tr>
                                     <td>{{ $roles->firstItem() + $key }}</td>
                                     <td>{{ $role->role_name }}</td>
-                                    <td>{{ $role->description }}</td>
                                     <td>{{ $role->created_at->format('d/m/Y H:i') }}</td>
                                     <td class="table-actions">
                                         <a href="{{ route('admin.roles.edit', $role->role_id) }}"

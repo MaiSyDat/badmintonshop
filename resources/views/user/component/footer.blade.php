@@ -15,11 +15,11 @@
                 Chúng tôi chuyên cung cấp các sản phẩm cầu lông chất lượng cao,
                 từ vợt chuyên nghiệp đến phụ kiện đầy đủ cho mọi trình độ chơi.
             </p>
-            <div class="newsletter-section">
+            <div class="newsletter-section-footer">
                 <h3>Đăng ký nhận tin</h3>
-                <form class="newsletter-form">
-                    <input type="email" class="newsletter-input" placeholder="Nhập email của bạn">
-                    <button type="submit" class="newsletter-btn">
+                <form class="newsletter-form-footer">
+                    <input type="email" class="newsletter-input-footer" placeholder="Nhập email của bạn">
+                    <button type="submit" class="newsletter-btn-footer">
                         <svg viewBox="0 0 24 24">
                             <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
                         </svg>

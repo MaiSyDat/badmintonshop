@@ -22,11 +22,16 @@
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../assets/css/admin/vendor/fonts/boxicons.css" />
 
+    <link rel="stylesheet" href="/assets/css/admin/css/component/account.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {{-- <link rel="stylesheet" href="{{ asset('css/auth.css') }}"> --}}
+
     <link rel="stylesheet" href="../assets/css/grid.css">
     <link rel="stylesheet" href="../assets/css/base.css">
     <link rel="stylesheet" href="../assets/css/component/nav.css">
     <link rel="stylesheet" href="../assets/css/component/slider.css">
     <link rel="stylesheet" href="../assets/css/page/home.css">
+    <link rel="stylesheet" href="../assets/css/auth/auth.css">
     <link rel="stylesheet" href="../assets/css/component/footer.css">
 
 </head>

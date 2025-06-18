@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('variant_attribute_values', function (Blueprint $table) {
-            $table->increments('value_id'); // Khóa chính tự tăng
-            $table->unsignedInteger('attribute_id')->comment('Khóa ngoại tới bảng variant_attributes');
+            $table->uuid('value_id')->primary(); // Khóa chính UUID
+            $table->uuid('attribute_id')->comment('Khóa ngoại tới bảng variant_attributes');
             $table->string('attribute_value', 100)->comment('Giá trị thuộc tính (Red, 3U, G5, etc.)');
             $table->timestamps();
 
             $table->foreign('attribute_id')->references('attribute_id')->on('variant_attributes')->onDelete('cascade');
-            $table->unique(['attribute_id', 'attribute_value']); // Đảm bảo giá trị là duy nhất trong cùng một thuộc tính
+            $table->unique(['attribute_id', 'attribute_value']); // Giá trị duy nhất theo thuộc tính
         });
     }
 

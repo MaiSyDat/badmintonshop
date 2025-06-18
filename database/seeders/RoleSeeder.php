@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB; // Import DB facade
+use Illuminate\Support\Str;
 
 class RoleSeeder extends Seeder
 {
@@ -20,11 +21,25 @@ class RoleSeeder extends Seeder
         //     ['role_id' => 3, 'role_name' => 'Customer'],
         // ]);
 
-        // Nếu bạn muốn dùng timestamps
         DB::table('roles')->insertOrIgnore([
-            ['role_name' => 'Admin', 'created_at' => now(), 'updated_at' => now()],
-            ['role_name' => 'Staff', 'created_at' => now(), 'updated_at' => now()],
-            ['role_name' => 'Customer', 'created_at' => now(), 'updated_at' => now()],
+            [
+                'role_id' => (string) Str::uuid(),
+                'role_name' => 'Admin',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'role_id' => (string) Str::uuid(),
+                'role_name' => 'Staff',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'role_id' => (string) Str::uuid(),
+                'role_name' => 'Customer',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

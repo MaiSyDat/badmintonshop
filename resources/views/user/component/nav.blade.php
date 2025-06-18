@@ -5,7 +5,7 @@
 
         {{-- logo and menu mobile --}}
         <div class="nav__data">
-            <a href="#" class="nav__logo">
+            <a href="{{ route('home') }}" class="nav__logo">
                 Badminton<span>Shop</span>
             </a>
             <div class="nav__toggle" id="nav-toggle">
@@ -18,7 +18,7 @@
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
                 <li>
-                    <a href="" class="nav__link">Trang chủ</a>
+                    <a href="{{ route('home') }}" class="nav__link">Trang chủ</a>
                 </li>
 
                 <li class="dropdown__item">

@@ -4,36 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class VariantAttributeValue extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $primaryKey = 'value_id';
-    public $incrementing = true;
-    protected $fillable = ['attribute_id', 'attribute_value'];
+    public $incrementing = false;
+    protected $keyType = 'string';
 
-    /**
-     * Get the attribute that owns the value.
-     */
+    protected $fillable = [
+        'attribute_id',
+        'attribute_value'
+    ];
+
     public function attribute()
     {
-        return $this->belongsTo(VariantAttribute::class, 'attribute_id', 'attribute_id');
-    }
-
-    /**
-     * The product variants that have this attribute value.
-     */
-    public function productVariants()
-    {
-        // This is a many-to-many relationship through 'product_variant_attribute_map'
-        return $this->belongsToMany(
-            ProductVariant::class,
-            'product_variant_attribute_map',
-            'value_id',
-            'variant_id',
-            'value_id',
-            'variant_id'
-        );
+        return $this->belongsTo(VariantAttribute::class, 'attribute_id');
     }
 }

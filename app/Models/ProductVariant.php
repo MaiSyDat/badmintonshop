@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductVariant extends Model
 {
@@ -34,32 +36,25 @@ class ProductVariant extends Model
     ];
 
     protected $casts = [
+        'additional_price' => 'decimal:2',
+        'stock_quantity' => 'integer',
         'is_available' => 'boolean',
-        'additional_price' => 'decimal:2', // Cast to decimal with 2 precision
     ];
 
     /**
      * Get the product that owns the variant.
      */
-    public function product()
+    public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'product_id', 'product_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     /**
      * Get the attributes values for the product variant.
      */
-    public function attributeValues()
+    public function attributes(): HasMany
     {
-        // This is a many-to-many relationship through 'product_variant_attribute_map'
-        return $this->belongsToMany(
-            VariantAttributeValue::class,
-            'product_variant_attribute_map',
-            'variant_id',
-            'value_id',
-            'variant_id',
-            'value_id'
-        );
+        return $this->hasMany(VariantAttributeValue::class, 'variant_id');
     }
 
     /**

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product_variant_attribute_map', function (Blueprint $table) {
             $table->uuid('map_id')->primary(); // UUID
             $table->uuid('variant_id')->comment('Khóa ngoại tới bảng product_variants');
-            $table->unsignedInteger('value_id')->comment('Khóa ngoại tới bảng variant_attribute_values');
+            $table->uuid('value_id')->comment('Khóa ngoại tới bảng variant_attribute_values');
             $table->timestamps();
 
             $table->foreign('variant_id')->references('variant_id')->on('product_variants')->onDelete('cascade');
