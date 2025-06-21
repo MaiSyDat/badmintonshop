@@ -1,4 +1,7 @@
 @extends('user.master_latout.main')
+
+@section('title', 'Trang chủ')
+
 @section('main')
     @include('user.component.slider')
 
@@ -78,42 +81,19 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col l-4 m-6 c-12">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-bolt"></i>
+                @foreach ($topCategories as $category)
+                    <div class="col l-4 m-6 c-12">
+                        <div class="category-card">
+                            <div class="category-icon">
+                                <i class="fas fa-bolt"></i> {{-- Bạn có thể tùy biến icon theo từng category nếu muốn --}}
+                            </div>
+                            <h3 class="category-title">{{ $category->category_name }}</h3>
+                            <p class="category-description">
+                                {{ $category->description ?? 'Chưa có mô tả cho danh mục này.' }}
+                            </p>
                         </div>
-                        <h3 class="category-title">Vợt Tấn Công</h3>
-                        <p class="category-description">
-                            Dành cho người chơi ưa thích lối chơi tấn công mạnh mẽ, smash cực
-                            mạnh với độ cứng cao.
-                        </p>
                     </div>
-                </div>
-                <div class="col l-4 m-6 c-12">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3 class="category-title">Vợt Phòng Thủ</h3>
-                        <p class="category-description">
-                            Thiết kế linh hoạt, dễ điều khiển cho lối chơi phòng thủ và phản
-                            công hiệu quả.
-                        </p>
-                    </div>
-                </div>
-                <div class="col l-4 m-6 c-12">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <h3 class="category-title">Vợt Cân Bằng</h3>
-                        <p class="category-description">
-                            Kết hợp hoàn hảo giữa tấn công và phòng thủ, phù hợp với mọi phong
-                            cách chơi.
-                        </p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -130,45 +110,38 @@
                     </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col l-4 m-6 c-12">
-                    <div class="product-card">
-                        <img src="/placeholder.svg?height=200&width=300" alt="Yonex Arcsaber 11" class="product-image" />
-                        <h3 class="product-title">Yonex Arcsaber 11</h3>
-                        <div class="product-price">2.890.000₫</div>
-                        <p class="product-description">
-                            Vợt cầu lông cao cấp với công nghệ Sonic Metal, mang lại cảm giác
-                            đánh cực kỳ sắc nét và mượt mà.
-                        </p>
-                        <a href="#" class="btn-primary">Xem Chi Tiết</a>
+            <div class="product-grid row">
+                @foreach ($featuredProducts as $product)
+                    <div class="mb-20 col l-4 m-4 c-6">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="{{ asset($product->main_image_url) }}" alt="{{ $product->product_name }}"
+                                    class="product-image">
+                                <div class="new-badge">New</div>
+                                <div class="discount-badge">-10%</div> <!-- Thêm badge giảm giá -->
+                                <button class="wishlist-btn">
+                                    <svg viewBox="0 0 24 24" stroke-width="2">
+                                        <path
+                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="product-info">
+                                <div class="color-options">
+                                    <div class="color-dot black"></div>
+                                    <div class="color-dot white"></div>
+                                    <div class="color-dot blue"></div>
+                                </div>
+                                <div class="product-name">{{ $product->product_name }}</div>
+                                <div class="product-price">{{ number_format($product->base_price, 0, ',', '.') }}₫</div>
+                                <a href="{{ route('product-detail', $product->product_id) }}"
+                                    class="buy-now-btn btn-primary">Mua
+                                    ngay</a> <!-- Thêm nút mua ngay -->
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col l-4 m-6 c-12">
-                    <div class="product-card">
-                        <img src="/placeholder.svg?height=200&width=300" alt="Victor Thruster K9900"
-                            class="product-image" />
-                        <h3 class="product-title">Victor Thruster K9900</h3>
-                        <div class="product-price">3.200.000₫</div>
-                        <p class="product-description">
-                            Vợt tấn công mạnh mẽ với khung cứng, được các tuyển thủ quốc gia tin
-                            dùng.
-                        </p>
-                        <a href="#" class="btn-primary">Xem Chi Tiết</a>
-                    </div>
-                </div>
-                <div class="col l-4 m-6 c-12">
-                    <div class="product-card">
-                        <img src="/placeholder.svg?height=200&width=300" alt="Mizuno Fortius Tour-F"
-                            class="product-image" />
-                        <h3 class="product-title">Mizuno Fortius Tour-F</h3>
-                        <div class="product-price">2.650.000₫</div>
-                        <p class="product-description">
-                            Thiết kế cân bằng hoàn hảo, phù hợp cho người chơi ở mọi trình độ từ
-                            nghiệp dư đến chuyên nghiệp.
-                        </p>
-                        <a href="#" class="btn-primary">Xem Chi Tiết</a>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -179,170 +152,43 @@
         <div class="container">
             <div class="title">
                 <h2 class="section-title">Sản phẩm</h2>
+                <p class="section-subtitle">
+                    Những mẫu vợt cầu lông mới nhất tại BadmintonShop
+                </p>
             </div>
 
             <div class="product-grid row">
-                <!-- Product 1 -->
-                <div class="mb-20 col l-4 m-4 c-6">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://cdn.shopvnb.com/uploads/images/tin_tuc/nhung-cay-vot-cau-long-nhe-nhat-1.webp"
-                                alt="Yonex Arcsaber 11">
-                            <div class="new-badge">New</div>
-                            <button class="wishlist-btn">
-                                <svg viewBox="0 0 24 24" stroke-width="2">
-                                    <path
-                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                    </path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="product-info">
-                            <div class="color-options">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot white"></div>
-                                <div class="color-dot blue"></div>
+                @foreach ($latestProducts as $product)
+                    <div class="mb-20 col l-4 m-4 c-6">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="{{ asset($product->main_image_url) }}" alt="{{ $product->product_name }}"
+                                    class="product-image">
+                                <div class="new-badge">New</div>
+                                <div class="discount-badge">-10%</div> <!-- Thêm badge giảm giá -->
+                                <button class="wishlist-btn">
+                                    <svg viewBox="0 0 24 24" stroke-width="2">
+                                        <path
+                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                        </path>
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="product-name">Yonex Arcsaber 11 Professional / Black</div>
-                            <div class="product-price">109.00€</div>
+                            <div class="product-info">
+                                <div class="color-options">
+                                    <div class="color-dot black"></div>
+                                    <div class="color-dot white"></div>
+                                    <div class="color-dot blue"></div>
+                                </div>
+                                <div class="product-name">{{ $product->product_name }}</div>
+                                <div class="product-price">{{ number_format($product->base_price, 0, ',', '.') }}₫</div>
+                                <a href="{{ route('product-detail', $product->product_id) }}"
+                                    class="buy-now-btn btn-primary">Mua
+                                    ngay</a> <!-- Thêm nút mua ngay -->
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="mb-20 col l-4 m-4 c-6">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://cdn.shopvnb.com/uploads/images/tin_tuc/nhung-cay-vot-cau-long-nhe-nhat-1.webp"
-                                alt="Yonex Arcsaber 11">
-                            <div class="new-badge">New</div>
-                            <button class="wishlist-btn">
-                                <svg viewBox="0 0 24 24" stroke-width="2">
-                                    <path
-                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                    </path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="product-info">
-                            <div class="color-options">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot white"></div>
-                                <div class="color-dot blue"></div>
-                            </div>
-                            <div class="product-name">Yonex Arcsaber 11 Professional / Black</div>
-                            <div class="product-price">109.00€</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="mb-20 col l-4 m-4 c-6">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://cdn.shopvnb.com/uploads/images/tin_tuc/nhung-cay-vot-cau-long-nhe-nhat-1.webp"
-                                alt="Yonex Arcsaber 11">
-                            <div class="new-badge">New</div>
-                            <button class="wishlist-btn">
-                                <svg viewBox="0 0 24 24" stroke-width="2">
-                                    <path
-                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                    </path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="product-info">
-                            <div class="color-options">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot white"></div>
-                                <div class="color-dot blue"></div>
-                            </div>
-                            <div class="product-name">Yonex Arcsaber 11 Professional / Black</div>
-                            <div class="product-price">109.00€</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="mb-20 col l-4 m-4 c-6">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://cdn.shopvnb.com/uploads/images/tin_tuc/nhung-cay-vot-cau-long-nhe-nhat-1.webp"
-                                alt="Yonex Arcsaber 11">
-                            <div class="new-badge">New</div>
-                            <button class="wishlist-btn">
-                                <svg viewBox="0 0 24 24" stroke-width="2">
-                                    <path
-                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                    </path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="product-info">
-                            <div class="color-options">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot white"></div>
-                                <div class="color-dot blue"></div>
-                            </div>
-                            <div class="product-name">Yonex Arcsaber 11 Professional / Black</div>
-                            <div class="product-price">109.00€</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="mb-20 col l-4 m-4 c-6">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://cdn.shopvnb.com/uploads/images/tin_tuc/nhung-cay-vot-cau-long-nhe-nhat-1.webp"
-                                alt="Yonex Arcsaber 11">
-                            <div class="new-badge">New</div>
-                            <button class="wishlist-btn">
-                                <svg viewBox="0 0 24 24" stroke-width="2">
-                                    <path
-                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                    </path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="product-info">
-                            <div class="color-options">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot white"></div>
-                                <div class="color-dot blue"></div>
-                            </div>
-                            <div class="product-name">Yonex Arcsaber 11 Professional / Black</div>
-                            <div class="product-price">109.00€</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="mb-20 col l-4 m-4 c-6">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://cdn.shopvnb.com/uploads/images/tin_tuc/nhung-cay-vot-cau-long-nhe-nhat-1.webp"
-                                alt="Yonex Arcsaber 11">
-                            <div class="new-badge">New</div>
-                            <button class="wishlist-btn">
-                                <svg viewBox="0 0 24 24" stroke-width="2">
-                                    <path
-                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                    </path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="product-info">
-                            <div class="color-options">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot white"></div>
-                                <div class="color-dot blue"></div>
-                            </div>
-                            <div class="product-name">Yonex Arcsaber 11 Professional / Black</div>
-                            <div class="product-price">109.00€</div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             <div class="load-more">
@@ -517,64 +363,21 @@
             <div class="slider-container">
                 <div class="slider-wrapper" id="sliderWrapper">
                     <!-- Slide 1: Yonex -->
-                    <div class="slide yonex">
-                        <div class="decoration"></div>
-                        <div class="decoration"></div>
-                        <div class="slide-content">
-                            <h2 class="brand-name">YONEX</h2>
-                            <p class="brand-description">Thương hiệu hàng đầu từ Nhật Bản với công nghệ tiên tiến</p>
-                            <button class="brand-btn">Khám phá ngay</button>
+                    @foreach ($brands as $brand)
+                        <div class="slide {{ strtolower($brand->brand_name) }}">
+                            <div class="decoration"></div>
+                            <div class="decoration"></div>
+                            <div class="slide-content">
+                                <h2 class="brand-name">{{ $brand->brand_name }}</h2>
+                                <p class="brand-description">Nơi hội tụ những cây vợt đỉnh cao – nâng tầm phong độ, chinh
+                                    phục mọi sân chơi!</p>
+                                <button class="brand-btn">Khám phá ngay</button>
+                            </div>
+                            <div class="slide-image">
+                                <img src="{{ asset($brand->brand_logo_url) }}" alt="{{ $brand->brand_name }}">
+                            </div>
                         </div>
-                        <div class="slide-image">
-                            <img src="https://cdn.shopvnb.com/uploads/images/tin_tuc/nhung-cay-vot-cau-long-nhe-nhat-1.webp"
-                                alt="Yonex Arcsaber 11">
-                        </div>
-                    </div>
-
-                    <!-- Slide 2: Victor -->
-                    <div class="slide victor">
-                        <div class="decoration"></div>
-                        <div class="decoration"></div>
-                        <div class="slide-content">
-                            <h2 class="brand-name">VICTOR</h2>
-                            <p class="brand-description">Thương hiệu Đài Loan nổi tiếng với chất lượng vượt trội</p>
-                            <button class="brand-btn">Xem sản phẩm</button>
-                        </div>
-                        <div class="slide-image">
-                            <img src="https://cdn.shopvnb.com/uploads/images/tin_tuc/nhung-cay-vot-cau-long-nhe-nhat-1.webp"
-                                alt="Yonex Arcsaber 11">
-                        </div>
-                    </div>
-
-                    <!-- Slide 3: Li-Ning -->
-                    <div class="slide lining">
-                        <div class="decoration"></div>
-                        <div class="decoration"></div>
-                        <div class="slide-content">
-                            <h2 class="brand-name">LI-NING</h2>
-                            <p class="brand-description">Thương hiệu Trung Quốc với thiết kế hiện đại và bền bỉ</p>
-                            <button class="brand-btn">Tìm hiểu thêm</button>
-                        </div>
-                        <div class="slide-image">
-                            <img src="https://cdn.shopvnb.com/uploads/images/tin_tuc/nhung-cay-vot-cau-long-nhe-nhat-1.webp"
-                                alt="Yonex Arcsaber 11">
-                        </div>
-                    </div>
-
-                    <!-- Slide 4: Mizuno -->
-                    <div class="slide mizuno">
-                        <div class="decoration"></div>
-                        <div class="decoration"></div>
-                        <div class="slide-content">
-                            <h2 class="brand-name">MIZUNO</h2>
-                            <p class="brand-description">Thương hiệu Nhật Bản với truyền thống lâu đời</p>
-                            <button class="brand-btn">Mua ngay</button>
-                        </div>
-                        <div class="slide-image">
-                            <img src="https://cdn.shopvnb.com/uploads/images/tin_tuc/nhung-cay-vot-cau-long-nhe-nhat-1.webp"
-                                alt="Yonex Arcsaber 11">
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 
                 <!-- Navigation Buttons -->

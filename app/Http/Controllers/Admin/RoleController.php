@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role; // Đảm bảo import Role model
+use App\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule; // Để sử dụng Rule::unique
+use Illuminate\Validation\Rule;
 
 class RoleController extends Controller
 {
@@ -16,12 +16,11 @@ class RoleController extends Controller
     {
         $query = Role::query();
 
-        // Nếu có từ khóa tìm kiếm
         if ($request->has('search') && $request->search !== null) {
             $query->where('role_name', 'like', '%' . $request->search . '%');
         }
 
-        $roles = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString(); // Giữ query khi phân trang
+        $roles = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
 
         return view('admin.roles.index', compact('roles'));
     }
@@ -49,7 +48,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing
      */
     public function edit(Role $role)
     {
@@ -57,7 +56,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update
      */
     public function update(Request $request, Role $role)
     {
@@ -76,7 +75,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove
      */
     public function destroy(Role $role)
     {

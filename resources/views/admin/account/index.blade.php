@@ -1,7 +1,7 @@
 @extends('admin.master_layout.main')
-@section('title')
-    Quản lý tài khoản
-@endsection
+
+@section('title', 'Quản lý người dùng')
+
 @section('main')
     <div class="col-md-12 main-content p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -56,6 +56,11 @@
                         <button type="submit" class="btn btn-outline-primary w-100">
                             <i class="bi bi-funnel me-2"></i>Lọc
                         </button>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <a href="{{ route('admin.account.index') }}" class="btn btn-outline-secondary w-100">
+                            <i class="bi bi-x-circle me-2"></i>Xóa lọc
+                        </a>
                     </div>
                 </div>
             </form>

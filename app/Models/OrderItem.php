@@ -26,10 +26,16 @@ class OrderItem extends Model
 
     protected $fillable = [
         'order_id',
-        'variant_id',
+        'product_id',
         'quantity',
         'price_per_item',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'product_id');
+    }
+
 
     protected $casts = [
         'price_per_item' => 'decimal:2',
@@ -41,13 +47,5 @@ class OrderItem extends Model
     public function order()
     {
         return $this->belongsTo(Order::class, 'order_id', 'order_id');
-    }
-
-    /**
-     * Get the product variant that owns the order item.
-     */
-    public function productVariant()
-    {
-        return $this->belongsTo(ProductVariant::class, 'variant_id', 'variant_id');
     }
 }

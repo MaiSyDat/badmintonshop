@@ -27,8 +27,6 @@ return new class extends Migration
             $table->foreign('role_id')->references('role_id')->on('roles')->onDelete('restrict'); // Quan hệ với bảng roles
         });
 
-        // Nếu bạn muốn giữ lại các bảng khác như password_reset_tokens và sessions, hãy thêm chúng vào đây.
-        // Ví dụ:
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');

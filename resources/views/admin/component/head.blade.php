@@ -1,5 +1,4 @@
-<!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="/assets/css/admin/img/favicon/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="../assets/img//logo/pngtree-badminton-logo-clipart-png-image_8152119.png" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />

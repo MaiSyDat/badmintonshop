@@ -1,7 +1,7 @@
 @extends('admin.master_layout.main')
-@section('title')
-    Quản lý sản phẩm
-@endsection
+
+@section('title', 'Quản lý sản phẩm')
+
 @section('main')
     <div class="col-md-12 main-content p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -59,6 +59,11 @@
                             <i class="bi bi-funnel me-2"></i>Lọc
                         </button>
                     </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <a href="{{ route('admin.product.index') }}" class="btn btn-outline-secondary w-100">
+                            <i class="bi bi-x-circle me-2"></i>Xóa lọc
+                        </a>
+                    </div>
                 </div>
             </form>
         </div>
@@ -70,6 +75,16 @@
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
+                    @if (session('success'))
+                        <div class="alert alert-success mx-3 mt-3">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger mx-3 mt-3">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <table class="table table-hover mb-0">
                         <thead class="table-light">
                             <tr>
@@ -89,8 +104,8 @@
                                     <td>{{ $products->firstItem() + $key }}</td>
                                     <td>
                                         @if ($product->main_image_url)
-                                            <img src="{{ asset('storage/' . $product->main_image_url) }}"
-                                                alt="{{ $product->product_name }}" class="product-thumbnail"
+                                            <img src="{{ asset($product->main_image_url) }}"
+                                                alt="{{ $product->product_name }}"
                                                 style="width: 60px; height: 60px; object-fit: cover;">
                                         @else
                                             <div class="product-thumbnail-placeholder d-flex align-items-center justify-content-center bg-light"
@@ -156,7 +171,6 @@
         <div class="d-flex justify-content-between align-items-center mt-4">
             <div class="text-muted">
                 {{ $products->firstItem() }} - {{ $products->lastItem() }}
-                {{ $products->total() }}
             </div>
             <nav aria-label="Phân trang">
                 {{ $products->links('pagination::bootstrap-5') }}

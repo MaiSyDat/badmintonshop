@@ -1,0 +1,679 @@
+/* Order Success Page Styles */
+.success-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.success-heading {
+    color: #28a745;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-radius: 8px;
+    border-left: 5px solid #28a745;
+}
+
+.success-heading i {
+    margin-right: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.success-subheading {
+    color: #495057;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.success-subheading i {
+    margin-right: 0.5rem;
+    color: #6c757d;
+}
+
+/* Order Info Section */
+.success-order-info {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border: 1px solid #e9ecef;
+}
+
+.success-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -0.5rem;
+}
+
+.success-col-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+    padding: 0.5rem;
+}
+
+.success-col-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding: 0.5rem;
+}
+
+.success-order-info p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #495057;
+}
+
+.success-order-info p i {
+    margin-right: 0.5rem;
+    color: #6c757d;
+    width: 20px;
+    text-align: center;
+}
+
+.success-order-info strong {
+    color: #212529;
+    font-weight: 600;
+}
+
+.success-price {
+    color: #dc3545;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Badges */
+.success-badge {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.success-paid {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.success-unpaid {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.success-shipping {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.success-pending {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+/* Product Details Section */
+.success-product-details {
+    margin-bottom: 2rem;
+}
+
+.success-table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.success-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    font-size: 0.95rem;
+}
+
+.success-table thead {
+    background: linear-gradient(135deg, #495057 0%, #6c757d 100%);
+    color: #fff;
+}
+
+.success-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
+
+.success-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+}
+
+.success-table tbody tr:hover {
+    background: #f8f9fa;
+    transition: background-color 0.3s ease;
+}
+
+.success-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.success-table tfoot {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.success-table tfoot td {
+    border-top: 2px solid #dee2e6;
+    padding: 1.2rem 1rem;
+}
+
+.success-total-label {
+    text-align: right;
+    font-size: 1.1rem;
+    color: #495057;
+}
+
+/* Button Styles */
+.success-btn-wrapper {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.success-back-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.success-back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+    color: #fff;
+    text-decoration: none;
+}
+
+.success-back-btn i {
+    margin-right: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .success-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .success-heading {
+        font-size: 1.5rem;
+        padding: 1rem;
+    }
+
+    .success-col-8,
+    .success-col-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .success-order-info {
+        padding: 1rem;
+    }
+
+    .success-table {
+        font-size: 0.85rem;
+    }
+
+    .success-table th,
+    .success-table td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .success-back-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .success-heading {
+        font-size: 1.3rem;
+    }
+
+    .success-subheading {
+        font-size: 1.1rem;
+    }
+
+    .success-table th,
+    .success-table td {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.8rem;
+    }
+
+    .success-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
+
+/* Animation for success message */
+@keyframes slideInFromTop {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-container {
+    animation: slideInFromTop 0.6s ease-out;
+}
+
+/* Print styles */
+@media print {
+    .success-back-btn {
+        display: none;
+    }
+
+    .success-container {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+
+    .success-heading {
+        background: none !important;
+        color: #000 !important;
+    }
+
+    .success-table thead {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+    }
+}
+
+/* MoMo Payment Demo Styles */
+.success-payment-demo {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative background elements */
+.success-payment-demo::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        rgba(169, 3, 41, 0.05) 0%,
+        transparent 70%
+    );
+    z-index: 0;
+    pointer-events: none;
+}
+
+.success-payment-demo > * {
+    position: relative;
+    z-index: 1;
+}
+
+.success-title {
+    color: #a90329;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 4px rgba(169, 3, 41, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.success-title::before {
+    content: "💳";
+    font-size: 2rem;
+}
+
+.success-text {
+    color: #495057;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+/* Order Info List */
+.success-info {
+    background: #fff;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    list-style: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.success-info li {
+    padding: 0.8rem 0;
+    font-size: 1rem;
+    color: #495057;
+    border-bottom: 1px solid #f1f3f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.success-info li:last-child {
+    border-bottom: none;
+}
+
+.success-info strong {
+    color: #212529;
+    font-weight: 600;
+    margin-right: 1rem;
+}
+
+/* MoMo-style button */
+.success-button {
+    background: linear-gradient(135deg, #a90329 0%, #d63384 100%);
+    color: #fff;
+    border: none;
+    padding: 1.2rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(169, 3, 41, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.success-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.5s;
+}
+
+.success-button:hover::before {
+    left: 100%;
+}
+
+.success-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(169, 3, 41, 0.4);
+    background: linear-gradient(135deg, #8b0226 0%, #b02a5b 100%);
+}
+
+.success-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(169, 3, 41, 0.3);
+}
+
+/* Back link */
+.success-link {
+    display: inline-block;
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid #e9ecef;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.success-link::before {
+    content: "←";
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+.success-link:hover {
+    color: #495057;
+    text-decoration: none;
+    border-color: #a90329;
+    background: rgba(169, 3, 41, 0.05);
+    transform: translateX(-5px);
+}
+
+/* Form styling */
+form {
+    margin: 2rem 0;
+}
+
+/* MoMo brand colors and styling */
+.success-payment-demo {
+    border-top: 4px solid #a90329;
+}
+
+/* Loading animation for button */
+.success-button.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.success-button.loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    border: 2px solid transparent;
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .success-payment-demo {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+    }
+
+    .success-title {
+        font-size: 1.8rem;
+    }
+
+    .success-text {
+        font-size: 1rem;
+    }
+
+    .success-info {
+        padding: 1rem;
+    }
+
+    .success-info li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .success-button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+    }
+
+    .success-link {
+        display: block;
+        text-align: center;
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .success-payment-demo {
+        padding: 1.5rem 1rem;
+    }
+
+    .success-title {
+        font-size: 1.5rem;
+    }
+
+    .success-title::before {
+        font-size: 1.5rem;
+    }
+
+    .success-info li {
+        padding: 0.6rem 0;
+        font-size: 0.9rem;
+    }
+}
+
+/* Animation for the entire container */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-payment-demo {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Success state animation */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 6px 20px rgba(169, 3, 41, 0.3);
+    }
+    50% {
+        box-shadow: 0 6px 20px rgba(169, 3, 41, 0.5);
+    }
+    100% {
+        box-shadow: 0 6px 20px rgba(169, 3, 41, 0.3);
+    }
+}
+
+.success-button:focus {
+    outline: none;
+    animation: pulse 2s infinite;
+}
+
+/* Print styles */
+@media print {
+    .success-payment-demo {
+        box-shadow: none;
+        border: 2px solid #a90329;
+        background: #fff !important;
+    }
+
+    .success-button,
+    .success-link {
+        display: none;
+    }
+
+    .success-title {
+        color: #000 !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .success-payment-demo {
+        border: 3px solid #000;
+        background: #fff;
+    }
+
+    .success-title {
+        color: #000;
+    }
+
+    .success-button {
+        background: #000;
+        border: 2px solid #000;
+    }
+
+    .success-link {
+        border-color: #000;
+        color: #000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .success-payment-demo,
+    .success-button,
+    .success-link {
+        animation: none;
+        transition: none;
+    }
+
+    .success-button:hover {
+        transform: none;
+    }
+
+    .success-link:hover {
+        transform: none;
+    }
+}

@@ -250,7 +250,7 @@
 .color-options {
     display: flex;
     gap: 6px;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
 }
 
 .color-dot {
@@ -286,24 +286,17 @@
 }
 
 .product-name {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 8px;
+    font-size: 19px;
+    color: var(--title-color);
+    margin-bottom: 30px;
     line-height: 1.4;
 }
 
-.product-title {
+.product-price {
     font-size: 20px;
     font-weight: var(--font-bold);
-    color: var(--title-color);
-    margin-bottom: 12px;
-}
-
-.product-price {
-    font-size: 24px;
-    font-weight: var(--font-bold);
-    color: var(--primary-one);
-    margin-bottom: 16px;
+    color: var(--price-color);
+    margin-bottom: 30px;
 }
 
 .product-description {
@@ -332,6 +325,20 @@
     color: var(--primary-one);
     border-color: var(--bg-primary);
 }
+
+.discount-badge {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    background: #dc2626;
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    z-index: 1;
+}
+
 /* ===== END SECTION: PRODUCT GRID ===== */
 
 /* ===== START SECTION: WHY CHOOSE US ===== */
@@ -674,7 +681,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
-    display: inline-block;
+    display: block;
     text-align: center;
 }
 

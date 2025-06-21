@@ -22,70 +22,55 @@
                 </li>
 
                 <li class="dropdown__item">
-                    <div class="nav__link dropdown__button">
+                    <a href="{{ route('product') }}" class="nav__link dropdown__button">
                         Sản phẩm <i class='bx bx-chevron-down dropdown__arrow'></i>
-                    </div>
+                    </a>
+
                     {{-- menu dropdown --}}
                     <div class="dropdown__container">
                         <div class="dropdown__content">
+                            {{-- Danh mục --}}
                             <div class="dropdown__group">
-                                <span class="dropdown__title">Title</span>
+                                <span class="dropdown__title">Danh mục sản phẩm</span>
                                 <ul class="dropdown__list">
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
+                                    @foreach ($categories as $category)
+                                        <li>
+                                            {{-- {{ route('category.show', $category->category_id) }} --}}
+                                            <a href="{{ route('product') }}" class="dropdown__link">
+                                                {{ $category->category_name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
+
+                            {{-- Thương hiệu --}}
                             <div class="dropdown__group">
-                                <span class="dropdown__title">Title</span>
+                                <span class="dropdown__title">Gợi ý sản phẩm</span>
                                 <ul class="dropdown__list">
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
+                                    @foreach ($nameproduct as $item)
+                                        <li>
+                                            {{-- {{ route('brand.show', $brand->brand_id) }} --}}
+                                            <a href="" class="dropdown__link">
+                                                {{ $item->product_name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
+
+                            {{-- Thương hiệu --}}
                             <div class="dropdown__group">
-                                <span class="dropdown__title">Title</span>
+                                <span class="dropdown__title">Thương hiệu nổi bật</span>
                                 <ul class="dropdown__list">
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="dropdown__link">product</a>
-                                    </li>
+                                    @foreach ($brands as $brand)
+                                        <li>
+                                            {{-- {{ route('brand.show', $brand->brand_id) }} --}}
+                                            <a href="" class="dropdown__link">
+                                                {{ $brand->brand_name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -144,13 +129,13 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="action__link">
-                                        <i class="bx bx-cog"></i> Cài đặt
+                                    <a href="{{ route('cart.index') }}" class="action__link">
+                                        <i class="bx bx-cart"></i> Giỏ hàng
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="action__link">
-                                        <i class="bx bx-cart"></i> Giỏ hàng
+                                        <i class="bx bx-cog"></i> Cài đặt
                                     </a>
                                 </li>
 
@@ -172,7 +157,8 @@
                                     </a>
                                 </li>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
                                     @csrf
                                 </form>
                             </ul>
@@ -196,8 +182,15 @@
                                         <i class="bx bx-scan"></i> Đăng ký
                                     </a>
                                 </li>
-                                <li><a href="#" class="action__link">
-                                        <i class="bx bx-group"></i> Hỗ trợ</a>
+                                <li>
+                                    <a href="{{ route('cart.index') }}" class="action__link">
+                                        <i class="bx bx-cart"></i> Giỏ hàng
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="action__link">
+                                        <i class="bx bx-group"></i> Hỗ trợ
+                                    </a>
                                 </li>
                             </ul>
                         </div>

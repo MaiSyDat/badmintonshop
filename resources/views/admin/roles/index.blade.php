@@ -1,7 +1,7 @@
 @extends('admin.master_layout.main')
-@section('title')
-    Quản lý Quyền
-@endsection
+
+@section('title', 'Quản lý phân quyền')
+
 @section('main')
     <div class="col-md-12 main-content p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">

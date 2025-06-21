@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->uuid('order_item_id')->primary(); // UUID
             $table->uuid('order_id')->comment('Khóa ngoại tới bảng orders');
-            $table->uuid('variant_id')->comment('Khóa ngoại tới bảng product_variants');
+            $table->uuid('product_id')->comment('Khóa ngoại tới bảng prodcut');
             $table->integer('quantity')->comment('Số lượng sản phẩm');
             $table->decimal('price_per_item', 10, 2)->comment('Giá sản phẩm tại thời điểm đặt hàng');
             $table->timestamps();
 
             $table->foreign('order_id')->references('order_id')->on('orders')->onDelete('cascade');
-            $table->foreign('variant_id')->references('variant_id')->on('product_variants')->onDelete('restrict');
+            $table->foreign('product_id')->references('product_id')->on('products')->onDelete('restrict');
         });
     }
 

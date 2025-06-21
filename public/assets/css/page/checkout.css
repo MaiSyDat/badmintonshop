@@ -1,0 +1,480 @@
+.ckout-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Breadcrumb */
+.ckout-breadcrumb {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ckout-breadcrumb-text {
+    color: #666;
+    margin-right: 10px;
+}
+
+.ckout-breadcrumb-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.ckout-breadcrumb-link:hover {
+    text-decoration: underline;
+}
+
+/* Main Layout */
+.ckout-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+/* Payment Information Section */
+.ckout-payment-info {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ckout-payment-form {
+    display: grid;
+    grid-template-columns: 30% 35% 35%;
+    gap: 30px;
+}
+
+/* Section Titles */
+.ckout-section-title {
+    color: #007bff;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Form Fields Column */
+.ckout-infor {
+    /* margin-right: 20px; */
+}
+
+.ckout-payment-form > .ckout-form-group {
+    grid-column: 1;
+}
+
+.ckout-form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.ckout-form-group label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.ckout-sub-label {
+    font-size: 14px;
+    color: #666;
+    font-weight: normal !important;
+    margin-top: 5px;
+}
+
+.ckout-required {
+    color: #e74c3c;
+}
+
+.ckout-form-group input,
+.ckout-form-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.ckout-form-group input:focus,
+.ckout-form-group textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.ckout-form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Order Summary Section (Middle Column) */
+.ckout-order-summary {
+    grid-column: 2;
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.ckout-order-details {
+    margin-bottom: 0;
+}
+
+.ckout-order-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+/* Order Items with Scroll */
+.ckout-order-items {
+    max-height: 300px;
+    overflow-y: auto;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 15px;
+}
+
+/* Custom Scrollbar */
+.ckout-order-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ckout-order-items::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.ckout-order-items::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.ckout-order-items::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Firefox Scrollbar */
+.ckout-order-items {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+.ckout-order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.ckout-order-item:last-child {
+    border-bottom: none;
+}
+
+.ckout-product-name {
+    flex: 1;
+    color: #333;
+    padding-right: 15px;
+    font-size: 14px;
+}
+
+.ckout-product-price {
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap;
+}
+
+.ckout-subtotal {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #dee2e6;
+    color: #666;
+}
+
+.ckout-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.ckout-total-price {
+    color: #007bff;
+    font-size: 20px;
+}
+
+/* Payment & Checkout Section (Right Column) */
+.ckout-payment-checkout {
+    grid-column: 3;
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: fit-content;
+}
+
+/* Payment Methods */
+.ckout-payment-methods {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 20px;
+}
+
+.ckout-payment-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.ckout-payment-option {
+    margin-bottom: 12px;
+}
+
+.ckout-payment-option input[type="radio"] {
+    margin-right: 10px;
+    transform: scale(1.1);
+    accent-color: #007bff;
+}
+
+.ckout-payment-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+.ckout-payment-label:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.ckout-payment-icon {
+    color: #28a745;
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.ckout-momo-icon {
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #a50064, #d82d8b);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ckout-momo-logo {
+    width: 14px;
+    height: 14px;
+    filter: brightness(0) invert(1);
+}
+
+/* Payment Info Text */
+.ckout-payment-info-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #666;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 20px;
+}
+
+.ckout-payment-info-text p {
+    margin-bottom: 6px;
+}
+
+.ckout-payment-info-text strong {
+    color: #333;
+}
+
+/* Confirmation */
+.ckout-confirmation {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+}
+
+.ckout-confirmation input[type="checkbox"] {
+    margin-top: 2px;
+    transform: scale(1.1);
+    accent-color: #007bff;
+}
+
+.ckout-confirmation label {
+    font-size: 13px;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+/* Order Button */
+.ckout-order-button {
+    width: 100%;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.ckout-order-button:hover {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+}
+
+.ckout-order-button:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .ckout-payment-form {
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+    }
+
+    .ckout-payment-checkout {
+        grid-column: 1 / -1;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ckout-payment-form {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .ckout-payment-info {
+        padding: 20px;
+    }
+
+    .ckout-order-summary,
+    .ckout-payment-checkout {
+        padding: 20px;
+    }
+
+    .ckout-container {
+        padding: 10px;
+    }
+
+    .ckout-order-header {
+        font-size: 12px;
+    }
+
+    .ckout-order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 0;
+    }
+
+    .ckout-product-price {
+        align-self: flex-end;
+    }
+
+    .ckout-order-items {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ckout-section-title {
+        font-size: 16px;
+    }
+
+    .ckout-total {
+        font-size: 16px;
+    }
+
+    .ckout-total-price {
+        font-size: 18px;
+    }
+
+    .ckout-payment-label {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .ckout-order-button {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .ckout-order-items {
+        max-height: 200px;
+    }
+
+    .ckout-form-group {
+        margin-bottom: 15px;
+    }
+}
+
+/* Form Validation Styles */
+
+input:valid {
+    border-color: #28a745;
+}
+
+/* Custom Radio Button Styling */
+.ckout-payment-option input[type="radio"]:checked + .ckout-payment-label {
+    background-color: rgba(0, 123, 255, 0.1);
+    border: 1px solid #007bff;
+}
+
+/* Loading State for Button */
+.ckout-order-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Empty Cart Message */
+.ckout-order-item:only-child .ckout-product-name {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+/* Laravel Blade specific adjustments */
+.ckout-payment-form > .ckout-section-title:first-of-type {
+    grid-column: 1;
+    margin-bottom: 0;
+}
+
+.ckout-order-summary .ckout-section-title {
+    margin-top: 0;
+}
+
+.ckout-payment-checkout .ckout-payment-title {
+    margin-top: 0;
+}

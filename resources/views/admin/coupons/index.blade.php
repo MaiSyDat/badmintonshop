@@ -3,12 +3,20 @@
 @section('title', 'Quản lý Mã giảm giá')
 
 @section('main')
-    <div class="container-fluid">
+    <div class="col-md-12 main-content p-4">
         <!-- Page header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Quản lý Mã giảm giá</h1>
+            <div>
+                <h2 class="mb-1">Quản lý Mã giảm giá</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Quản lý Mã giảm giá</li>
+                    </ol>
+                </nav>
+            </div>
             <a href="{{ route('admin.coupon.create') }}" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i> Thêm Mã giảm giá
+                <i class="bx bx-plus"></i> Thêm Mã giảm giá
             </a>
         </div>
 
@@ -55,7 +63,7 @@
                             <i class="bi bi-funnel"></i> Lọc
                         </button>
                     </div>
-                    <div class="col-md-1 d-flex align-items-end">
+                    <div class="col-md-2 d-flex align-items-end">
                         <a href="{{ route('admin.coupon.index') }}" class="btn btn-outline-secondary w-100">
                             <i class="bi bi-x-circle me-2"></i>Xóa lọc
                         </a>
@@ -67,19 +75,17 @@
         <!-- Coupon List -->
         <div class="card shadow mb-4">
             <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ session('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
                 <div class="table-responsive">
+                    @if (session('success'))
+                        <div class="alert alert-success mx-3 mt-3">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger mx-3 mt-3">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -128,16 +134,16 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('admin.coupon.edit', $coupon) }}"
-                                                class="btn btn-sm btn-primary" title="Sửa">
-                                                <i class="bi bi-pencil"></i>
+                                                class="btn btn-sm btn-outline-primary me-1" title="Sửa">
+                                                <i class="bx bx-edit-alt"></i>
                                             </a>
                                             <form action="{{ route('admin.coupon.destroy', $coupon->coupon_id) }}"
                                                 method="POST" class="d-inline ms-1">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger" title="Xóa"
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa"
                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa mã giảm giá này không?');">
-                                                    <i class="bi bi-trash"></i>
+                                                    <i class="bx bx-trash"></i>
                                                 </button>
                                             </form>
                                         </div>

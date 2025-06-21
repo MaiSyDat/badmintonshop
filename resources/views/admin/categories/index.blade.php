@@ -3,11 +3,20 @@
 @section('title', 'Quản lý danh mục')
 
 @section('main')
-    <div class="container-fluid">
+    <div class="col-md-12 main-content p-4">
+
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Quản lý danh mục</h1>
+            <div>
+                <h2 class="mb-1">Quản lý danh mục</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Quản lý danh mục</li>
+                    </ol>
+                </nav>
+            </div>
             <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i> Thêm danh mục
+                <i class="bx bx-plus"></i> Thêm danh mục
             </a>
         </div>
 
@@ -23,7 +32,6 @@
                             </button>
                         </div>
                     </div>
-                    {{-- Các trường search và filter này phụ thuộc vào việc bạn có thêm cột slug và status vào DB không --}}
                     <div class="col-md-3">
                         <select class="form-select" name="status">
                             <option value="">Tất cả trạng thái</option>
@@ -35,6 +43,11 @@
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="bi bi-funnel"></i> Lọc
                         </button>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary w-100">
+                            <i class="bi bi-x-circle me-2"></i>Xóa lọc
+                        </a>
                     </div>
                 </form>
             </div>
@@ -53,6 +66,16 @@
                     </div>
                 @endif
                 <div class="table-responsive">
+                    @if (session('success'))
+                        <div class="alert alert-success mx-3 mt-3">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger mx-3 mt-3">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <table class="table table-hover">
                         <thead>
                             <tr>

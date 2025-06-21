@@ -81,10 +81,6 @@ class CategoriesController extends Controller
 
     public function destroy(Category $category)
     {
-        // Bước kiểm tra sản phẩm thuộc danh mục (products()->exists())
-        // Giữ lại nếu bạn có bảng 'products' và cột 'category_id' trong bảng 'products'
-        // và đã thiết lập quan hệ `products()` trong model Category.
-        // Nếu không có, bạn có thể xóa đoạn này.
         if (method_exists($category, 'products') && $category->products()->exists()) {
             return response()->json([
                 'success' => false,

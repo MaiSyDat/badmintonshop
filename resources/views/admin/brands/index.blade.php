@@ -3,12 +3,20 @@
 @section('title', 'Quản lý thương hiệu')
 
 @section('main')
-    <div class="container-fluid">
+    <div class="col-md-12 main-content p-4">
         <!-- Page header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Quản lý thương hiệu</h1>
+            <div>
+                <h2 class="mb-1">Quản lý thương hiệu</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Quản lý thương hiệu</li>
+                    </ol>
+                </nav>
+            </div>
             <a href="{{ route('admin.brands.create') }}" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i> Thêm thương hiệu
+                <i class="bx bx-plus"></i> Thêm thương hiệu
             </a>
         </div>
 
@@ -56,20 +64,17 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th width="5%">STT</th> {{-- Thêm cột STT --}}
+                                <th width="5%">STT</th>
                                 <th width="10%">Logo</th>
                                 <th width="20%">Tên thương hiệu</th>
-                                {{-- <th width="15%">Slug</th> --}} {{-- Bỏ comment nếu thêm cột brand_slug vào DB --}}
-                                {{-- <th width="15%">Số sản phẩm</th> --}} {{-- Bỏ comment nếu có quan hệ products và withCount --}}
-                                <th width="20%">Ngày tạo</th> {{-- Thêm cột ngày tạo --}}
-                                {{-- <th width="10%">Trạng thái</th> --}} {{-- Bỏ comment nếu thêm cột is_active vào DB --}}
+                                <th width="20%">Ngày tạo</th>
                                 <th width="15%">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($brands as $key => $brand)
                                 <tr>
-                                    <td>{{ $brands->firstItem() + $key }}</td> {{-- Hiển thị STT --}}
+                                    <td>{{ $brands->firstItem() + $key }}</td>
                                     <td>
                                         @if ($brand->brand_logo_url)
                                             <img src="{{ asset($brand->brand_logo_url) }}" alt="{{ $brand->brand_name }}"
@@ -82,14 +87,12 @@
                                     <td>{{ $brand->created_at->format('d/m/Y H:i') }}</td>
                                     <td>
                                         <div class="btn-group">
-                                            {{-- Nút Sửa --}}
                                             <a href="{{ route('admin.brands.edit', $brand->brand_id) }}"
                                                 class="btn btn-sm btn-outline-primary me-1" title="Sửa">
                                                 <i class="bx bx-edit-alt"></i>
                                             </a>
-                                            {{-- Form Xóa --}}
                                             <form action="{{ route('admin.brands.destroy', $brand->brand_id) }}"
-                                                method="POST" class="d-inline ms-1"> {{-- Added ms-1 for spacing --}}
+                                                method="POST" class="d-inline ms-1">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa"
@@ -102,7 +105,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center py-4"> {{-- Điều chỉnh colspan nếu thay đổi số cột --}}
+                                    <td colspan="5" class="text-center py-4">
                                         <div class="empty-state">
                                             <i class="bi bi-emoji-frown fs-1"></i>
                                             <p class="mt-2">Không tìm thấy thương hiệu nào</p>

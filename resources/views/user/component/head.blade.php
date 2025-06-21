@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Home</title>
+    <title>@yield('title')</title>
 
     <meta name="description" content="" />
 
@@ -16,8 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/css/admin/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon"
+        href="../assets/img//logo/pngtree-badminton-logo-clipart-png-image_8152119.png" />
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../assets/css/admin/vendor/fonts/boxicons.css" />
@@ -31,6 +31,11 @@
     <link rel="stylesheet" href="../assets/css/component/nav.css">
     <link rel="stylesheet" href="../assets/css/component/slider.css">
     <link rel="stylesheet" href="../assets/css/page/home.css">
+    <link rel="stylesheet" href="../assets/css/page/product-detail.css">
+    <link rel="stylesheet" href="../assets/css/page/cart.css">
+    <link rel="stylesheet" href="../assets/css/page/checkout.css">
+    <link rel="stylesheet" href="../assets/css/page/success.css">
+    <link rel="stylesheet" href="../assets/css/page/product.css">
     <link rel="stylesheet" href="../assets/css/auth/auth.css">
     <link rel="stylesheet" href="../assets/css/component/footer.css">
 
