@@ -1,16 +1,42 @@
 // =============================
 // 1. NÚT YÊU THÍCH (wishlist)
 // =============================
-document.querySelectorAll(".wishlist-btn").forEach((btn) => {
-    btn.addEventListener("click", function () {
-        const svg = this.querySelector("svg");
-        if (svg.style.fill === "red") {
-            svg.style.fill = "none";
-            svg.style.stroke = "#666";
-        } else {
-            svg.style.fill = "red";
-            svg.style.stroke = "red";
-        }
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".wishlist-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+            const productId = this.getAttribute("data-product-id");
+            const svg = this.querySelector("svg");
+            const isActive = this.classList.contains("active");
+            const url = isActive ? "/wishlist/remove" : "/wishlist/add";
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ product_id: productId }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        this.classList.toggle("active");
+                        svg.style.fill = this.classList.contains("active")
+                            ? "red"
+                            : "none";
+                        svg.style.stroke = this.classList.contains("active")
+                            ? "red"
+                            : "#666";
+                    } else {
+                        alert("Thao tác không thành công.");
+                    }
+                })
+                .catch(() => {
+                    alert("Đăng nhập để yêu thích sản phẩm.");
+                });
+        });
     });
 });
 

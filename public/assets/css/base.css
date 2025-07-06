@@ -2,9 +2,9 @@
     --header-height: 56px;
 
     /* color */
-    --primary-one: #778df0;
-    --primary-two: #c48ff9;
-    --bg-primary: linear-gradient(135deg, #667eea 0%, #b185dd 100%);
+    --primary-one: #007bff;
+    --primary-two: #9b37ff;
+    --bg-primary: linear-gradient(135deg, #007bff 0%, #9b37ff 100%);
     --light: #f6f9fe;
     --title-color: #2c3e50;
     --text-color: #6b7280;
@@ -49,4 +49,8 @@ ul {
 
 .mb-20 {
     margin-bottom: 20px;
+}
+
+.mt-20 {
+    margin-top: 20px;
 }

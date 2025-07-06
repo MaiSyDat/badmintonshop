@@ -90,6 +90,6 @@ class CategoriesController extends Controller
 
         $category->delete();
 
-        return redirect()->route('admin.categories.index')->with('success', 'Xóa quyền thành công!');
+        return redirect()->route('admin.categories.index')->with('success', 'Xóa danh mục thành công!');
     }
 }

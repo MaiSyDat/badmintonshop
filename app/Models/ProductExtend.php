@@ -11,6 +11,9 @@ class ProductExtend extends Model
     use HasFactory;
 
     protected $table = 'product_extend';
+    protected $primaryKey = 'product_id'; // ✅ Khóa chính
+    public $incrementing = false;         // ✅ Không tự tăng vì dùng UUID
+    protected $keyType = 'string';        // ✅ UUID là chuỗi
 
     protected $fillable = [
         'product_id',

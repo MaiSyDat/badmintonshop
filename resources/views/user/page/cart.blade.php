@@ -18,6 +18,10 @@
     </header>
 
     <div class="ss_cart-container">
+        <div class="ckout-breadcrumb">
+            <span class="ckout-breadcrumb-link">Sản phẩm của bạn</span>
+        </div>
+
         <!-- Header -->
         <div class="ss_cart-header">
             <div class="ss_cart-header-item ss_cart-product-col">
@@ -55,12 +59,14 @@
                         </span>
                         <span class="ss_cart-current-price">₫{{ number_format($item->price) }}</span>
                     </div>
-                    <div class="ss_cart-quantity-control">
+                    <div class="ss_cart-quantity-control" data-id="{{ $item->id }}">
                         <button class="ss_cart-qty-btn ss_cart-minus">-</button>
                         <input type="number" value="{{ $item->quantity }}" class="ss_cart-qty-input" readonly>
                         <button class="ss_cart-qty-btn ss_cart-plus">+</button>
                     </div>
-                    <div class="ss_cart-product-total">₫{{ number_format($item->price * $item->quantity) }}</div>
+                    <div class="ss_cart-product-total" data-id="{{ $item->id }}">
+                        ₫<span class="item-total">{{ number_format($item->price * $item->quantity) }}</span>
+                    </div>
                     <div class="ss_cart-product-actions">
                         <form action="{{ route('delete.cart', ['product' => $item->id]) }}" method="POST">
                             @csrf
@@ -89,7 +95,7 @@
         <!-- Shopee Voucher Section -->
         <div class="ss_cart-shopee-voucher">
             <i class="fas fa-gift ss_cart-voucher-gift-icon"></i>
-            <span>Shopee Voucher</span>
+            <span>Voucher</span>
             <button class="ss_cart-voucher-select-btn">Chọn hoặc nhập mã</button>
         </div>
 
@@ -104,7 +110,7 @@
             <div class="ss_cart-right-actions">
                 <div class="ss_cart-total-section">
                     <span>Tổng cộng ({{ count($cart) }} sản phẩm): </span>
-                    <span class="ss_cart-total-amount">
+                    <span class="ss_cart-total-amount" id="cart-total">
                         ₫{{ number_format(collect($cart)->sum(fn($item) => $item->price * $item->quantity)) }}
                     </span>
                 </div>

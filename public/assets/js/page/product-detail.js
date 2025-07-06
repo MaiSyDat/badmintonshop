@@ -30,3 +30,20 @@ const ProductDetail = {
 };
 
 document.addEventListener("DOMContentLoaded", () => ProductDetail.init());
+
+// quantity
+document.addEventListener("DOMContentLoaded", function () {
+    const quantityInput = document.getElementById("quantityInput");
+    const buttons = document.querySelectorAll(".quantity-btn");
+
+    buttons.forEach((btn) => {
+        btn.addEventListener("click", function () {
+            let current = parseInt(quantityInput.value) || 1;
+            if (this.textContent === "+") {
+                quantityInput.value = current + 1;
+            } else if (this.textContent === "-" && current > 1) {
+                quantityInput.value = current - 1;
+            }
+        });
+    });
+});

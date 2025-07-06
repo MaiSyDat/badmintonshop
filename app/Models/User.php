@@ -6,31 +6,15 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Concerns\HasUuids; // <--- THÊM DÒNG NÀY
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasUuids; // <--- THÊM HasUuids VÀO ĐÂY
+    use HasFactory, Notifiable, HasUuids;
 
     protected $primaryKey = 'user_id';
     protected $keyType = 'string';
     public $incrementing = false;
-
-    // BỎ HOẶC XOÁ HOÀN TOÀN PHƯƠNG THỨC BOOT() NÀY
-    // Lý do: HasUuids trait đã tự động xử lý việc tạo UUID cho khóa chính.
-    // Việc giữ lại có thể gây xung đột hoặc không cần thiết.
-    /*
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($model) {
-            if (empty($model->{$model->getKeyName()})) {
-                $model->{$model->getKeyName()} = (string) Str::uuid();
-            }
-        });
-    }
-    */
-
 
     protected $fillable = [
         'username',
@@ -41,7 +25,6 @@ class User extends Authenticatable
         'address',
         'role_id',
         'is_active',
-        'avatar', // Đảm bảo avatar có trong fillable nếu bạn muốn cập nhật nó
     ];
 
     protected $hidden = [
@@ -55,7 +38,6 @@ class User extends Authenticatable
         'is_active' => 'boolean',
     ];
 
-    // Mối quan hệ với Role: Một User thuộc về một Role
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id', 'role_id');

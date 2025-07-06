@@ -11,6 +11,8 @@
 
     <meta name="description" content="" />
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
@@ -36,6 +38,8 @@
     <link rel="stylesheet" href="../assets/css/page/checkout.css">
     <link rel="stylesheet" href="../assets/css/page/success.css">
     <link rel="stylesheet" href="../assets/css/page/product.css">
+    <link rel="stylesheet" href="../assets/css/page/news.css">
+    <link rel="stylesheet" href="../assets/css/page/about.css">
     <link rel="stylesheet" href="../assets/css/auth/auth.css">
     <link rel="stylesheet" href="../assets/css/component/footer.css">
 

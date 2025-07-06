@@ -22,7 +22,7 @@
 }
 
 .product-detail-breadcrumb__separator {
-    color: var(--text-color);
+    color: var(--primary-two);
 }
 
 .product-detail-breadcrumb__current {
@@ -147,23 +147,196 @@
     margin-bottom: 20px;
 }
 
+/* Rating top */
 .product-detail-rating__stars {
     display: flex;
-    gap: 2px;
 }
 
 .product-detail-rating__star {
-    color: #d1d5db;
-    font-size: 18px;
+    font-size: 20px;
+    color: #ccc;
+    transition: color 0.3s;
+    cursor: default;
 }
 
 .product-detail-rating__star--filled {
-    color: #fbbf24;
+    color: #f5a623 !important;
 }
 
 .product-detail-rating__text {
-    font-size: var(--small-size);
-    color: var(--text-color);
+    font-size: 14px;
+    color: #333;
+}
+
+/* Tiêu đề đánh giá */
+.product-detail-specs__title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    color: #333;
+}
+
+/* Tổng quan đánh giá */
+.product-detail-reviews__overall {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.product-detail-reviews__number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ff9800;
+}
+
+.product-detail-reviews__stars-large {
+    font-size: 28px;
+    color: #ffc107;
+}
+
+/* Biểu đồ thanh đánh giá */
+.product-detail-reviews__bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.product-detail-reviews__bar-track {
+    flex: 1;
+    background-color: #eee;
+    height: 8px;
+    margin: 0 10px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.product-detail-reviews__bar-fill {
+    background-color: #ffc107;
+    height: 100%;
+    border-radius: 4px;
+}
+
+/* Form đánh giá */
+.product-detail-reviews__form {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    margin-top: 30px;
+}
+
+.product-detail-reviews__form h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+/* Phần chọn sao */
+.product-detail-rating__stars {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.product-detail-rating__stars input[type="radio"] {
+    display: none;
+}
+
+.product-detail-rating__stars input[type="radio"]:checked ~ label,
+.product-detail-rating__stars label:hover,
+.product-detail-rating__stars label:hover ~ label {
+    color: #ffc107;
+}
+
+.product-detail-rating__stars input[type="radio"]:checked + label,
+.product-detail-rating__stars input[type="radio"]:checked ~ label {
+    color: #ffc107;
+}
+
+/* Form bình luận */
+.form-control {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+/* Nút gửi */
+.product-detail-btn--primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px;
+    transition: background-color 0.3s;
+}
+
+.product-detail-btn--primary:hover {
+    background-color: #0056b3;
+}
+
+/* Danh sách đánh giá */
+.product-detail-reviews__list {
+    margin-top: 30px;
+}
+
+.product-detail-reviews__item {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-detail-reviews__item-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.product-detail-reviews__item-info strong {
+    font-size: 15px;
+    color: #000;
+}
+
+.product-detail-reviews__item-date {
+    font-size: 12px;
+    color: #888;
+}
+
+.product-detail-reviews__item-text {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+}
+
+/* Phản hồi từ admin */
+.product-detail-reviews__reply {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-top: 10px;
+    border-left: 3px solid #007bff;
+    font-size: 14px;
+}
+
+.product-detail-reviews__reply strong {
+    color: #007bff;
+}
+
+/* Admin form reply */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 13px;
 }
 
 /* Product Detail Buttons */
@@ -190,6 +363,8 @@
 
 .product-detail-btn--secondary {
     background: var(--price-color);
+    margin-top: 8px;
+    margin-left: 10px;
     color: white;
 }
 
@@ -198,16 +373,37 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
 }
-
-.product-detail-btn--large {
-    padding: 15px 30px;
-    font-size: 16px;
+.quantity-wrapper {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 12px;
 }
 
-.product-detail-actions {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 25px;
+.quantity-btn {
+    width: 36px;
+    height: 40px;
+    border: none;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.quantity-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.quantity-input {
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    border: none;
+    font-size: 16px;
+    outline: none;
 }
 
 /* Product Detail Promotion */
@@ -360,47 +556,117 @@
     width: 80px;
 }
 
-.product-detail-reviews__form {
-    text-align: center;
-    margin-bottom: 30px;
+/* Submit Button */
+.product-detail-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: none;
 }
 
-.product-detail-reviews__form h4 {
-    margin-bottom: 15px;
-    color: var(--title-color);
+.product-detail-btn--primary {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-.product-detail-reviews__list {
-    border-top: 1px solid #e5e7eb;
-    padding-top: 20px;
+.product-detail-btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
 }
 
-.product-detail-reviews__item {
-    padding: 15px 0;
-    border-bottom: 1px solid #f3f4f6;
+.product-detail-btn--primary:active {
+    transform: translateY(0);
 }
 
-.product-detail-reviews__item-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+/* Reviews List */
+
+/* Reply Section */
+.product-detail-reviews__reply {
+    background: #f8fafc;
+    border-left: 4px solid #3b82f6;
+    padding: 16px;
+    margin-top: 16px;
+    border-radius: 0 8px 8px 0;
+}
+
+.product-detail-reviews__reply strong {
+    color: #3b82f6;
+    font-weight: 600;
+    display: block;
     margin-bottom: 8px;
 }
 
-.product-detail-reviews__item-info strong {
-    color: var(--title-color);
+.product-detail-reviews__reply p {
+    margin: 0;
+    color: #4b5563;
+    line-height: 1.5;
 }
 
-.product-detail-reviews__item-date {
-    color: var(--text-color);
-    font-size: var(--small-size);
+/* Admin Reply Form */
+.product-detail-reviews__item form {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
 }
 
-.product-detail-reviews__item-text {
-    color: var(--text-color);
-    line-height: 1.6;
+.product-detail-reviews__item form .form-control {
+    margin-bottom: 12px;
+    min-height: 60px;
 }
 
+.product-detail-reviews__item form .btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.product-detail-reviews__item form .btn-primary {
+    background: #3b82f6;
+    color: white;
+}
+
+.product-detail-reviews__item form .btn-primary:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
+/* Loading and Empty States */
+.product-detail-reviews__empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6b7280;
+    font-style: italic;
+}
+
+.product-detail-reviews__loading {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Animation for new reviews */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-detail-reviews__item--new {
+    animation: slideIn 0.5s ease-out;
+}
 /* Product Detail Sidebar */
 .product-detail-sidebar {
     background: white;
@@ -444,54 +710,4 @@
 .product-detail-sidebar__category span {
     color: var(--text-color);
     font-weight: var(--font-bold);
-}
-
-/* Responsive Design */
-@media (max-width: 1023px) {
-    .product-detail-info {
-        padding-left: 0;
-        margin-top: 20px;
-    }
-
-    .product-detail-actions {
-        flex-direction: column;
-    }
-
-    .product-detail-reviews__summary {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .product-detail-sidebar {
-        margin-top: 20px;
-        position: static;
-    }
-}
-
-@media (max-width: 739px) {
-    .product-detail-info__title {
-        font-size: 20px;
-    }
-
-    .product-detail-price__current {
-        font-size: 24px;
-    }
-
-    .product-detail-actions {
-        flex-direction: column;
-    }
-
-    .product-detail-btn--large {
-        padding: 12px 20px;
-        font-size: 14px;
-    }
-
-    .product-detail-gallery__thumbnails {
-        flex-wrap: wrap;
-    }
-
-    .product-detail-specs__table td {
-        padding: 8px;
-        font-size: 12px;
-    }
 }

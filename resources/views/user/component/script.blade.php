@@ -4,3 +4,4 @@
     @endforeach
 @endif
 <script src="../assets/js/page/product-detail.js"></script>
+<script src="../assets/js/page/cart.js"></script>

@@ -100,28 +100,24 @@
 
                                         <div class="product-detail-rating">
                                             <div class="product-detail-rating__stars">
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <span
+                                                        class="product-detail-rating__star {{ $i <= round($averageRating) ? 'product-detail-rating__star--filled' : '' }}">★</span>
+                                                @endfor
                                             </div>
-                                            <span class="product-detail-rating__text">5.0/5 (12 đánh giá)</span>
+                                            <span class="product-detail-rating__text">
+                                                {{ $averageRating }}/5 ({{ $ratingCount }} đánh giá)
+                                            </span>
                                         </div>
 
                                         <div class="product-detail-actions">
                                             <form action="{{ route('add.cart', $product->product_id) }}" method="POST">
                                                 @csrf
                                                 <div class="quantity-wrapper">
-                                                    <button class="" type="button">-</button>
+                                                    <button type="button" class="quantity-btn">-</button>
                                                     <input type="number" id="quantityInput" name="quantity" value="1"
-                                                        min="1" class="">
-                                                    <button class="" type="button">+</button>
+                                                        min="1" class="quantity-input">
+                                                    <button type="button" class="quantity-btn">+</button>
                                                 </div>
                                                 <div class="d-flex gap-2 mb-3">
                                                     <button type="submit" name="action" value="add"
@@ -207,109 +203,98 @@
                                 <div class="product-detail-reviews__overview">
                                     <div class="product-detail-reviews__summary">
                                         <div class="product-detail-reviews__overall">
-                                            <span class="product-detail-reviews__number">5.0/5</span>
+                                            <span class="product-detail-reviews__number">{{ $averageRating }}/5</span>
                                             <div class="product-detail-reviews__stars-large">
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <span
+                                                        class="product-detail-rating__star {{ $i <= round($averageRating) ? 'product-detail-rating__star--filled' : '' }}">★</span>
+                                                @endfor
                                             </div>
-                                            <p>Dựa trên 12 nhận xét</p>
+                                            <p>Dựa trên {{ $ratingCount }} nhận xét</p>
                                         </div>
+
                                         <div class="product-detail-reviews__breakdown">
-                                            <div class="product-detail-reviews__bar">
-                                                <span>5★</span>
-                                                <div class="product-detail-reviews__bar-track">
-                                                    <div class="product-detail-reviews__bar-fill" style="width: 100%">
+                                            @for ($i = 5; $i >= 1; $i--)
+                                                @php
+                                                    $percent =
+                                                        $ratingCount > 0
+                                                            ? ($ratingDistribution[$i] / $ratingCount) * 100
+                                                            : 0;
+                                                @endphp
+                                                <div class="product-detail-reviews__bar">
+                                                    <span>{{ $i }}★</span>
+                                                    <div class="product-detail-reviews__bar-track">
+                                                        <div class="product-detail-reviews__bar-fill"
+                                                            style="width: {{ $percent }}%"></div>
                                                     </div>
+                                                    <span>{{ $ratingDistribution[$i] }} đánh giá</span>
                                                 </div>
-                                                <span>12 đánh giá</span>
-                                            </div>
-                                            <div class="product-detail-reviews__bar">
-                                                <span>4★</span>
-                                                <div class="product-detail-reviews__bar-track">
-                                                    <div class="product-detail-reviews__bar-fill" style="width: 0%"></div>
-                                                </div>
-                                                <span>0 đánh giá</span>
-                                            </div>
-                                            <div class="product-detail-reviews__bar">
-                                                <span>3★</span>
-                                                <div class="product-detail-reviews__bar-track">
-                                                    <div class="product-detail-reviews__bar-fill" style="width: 0%"></div>
-                                                </div>
-                                                <span>0 đánh giá</span>
-                                            </div>
-                                            <div class="product-detail-reviews__bar">
-                                                <span>2★</span>
-                                                <div class="product-detail-reviews__bar-track">
-                                                    <div class="product-detail-reviews__bar-fill" style="width: 0%"></div>
-                                                </div>
-                                                <span>0 đánh giá</span>
-                                            </div>
-                                            <div class="product-detail-reviews__bar">
-                                                <span>1★</span>
-                                                <div class="product-detail-reviews__bar-track">
-                                                    <div class="product-detail-reviews__bar-fill" style="width: 0%"></div>
-                                                </div>
-                                                <span>0 đánh giá</span>
-                                            </div>
+                                            @endfor
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="product-detail-reviews__form">
                                     <h4>Bạn đánh giá sao về sản phẩm này?</h4>
-                                    <button class="product-detail-btn product-detail-btn--primary">Gửi đánh giá</button>
+                                    <form action="{{ route('reviews.store', $product->product_id) }}" method="POST">
+                                        @csrf
+                                        <div class="form-group mb-2">
+                                            <label for="rating">Đánh giá:</label>
+                                            <div class="product-detail-rating__stars">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <input type="radio" name="rating" id="star{{ $i }}"
+                                                        value="{{ $i }}" required hidden>
+                                                    <label for="star{{ $i }}"
+                                                        class="product-detail-rating__star">★</label>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="comment">Bình luận:</label>
+                                            <textarea name="comment" class="form-control" rows="3" required></textarea>
+                                        </div>
+                                        <button class="product-detail-btn product-detail-btn--primary">Gửi đánh
+                                            giá</button>
+                                    </form>
                                 </div>
 
                                 <div class="product-detail-reviews__list">
-                                    <div class="product-detail-reviews__item">
-                                        <div class="product-detail-reviews__item-info">
-                                            <strong>Nguyễn Hữu Hưng Lam</strong>
-                                            <div class="product-detail-rating__stars">
+                                    @foreach ($product->reviews()->where('is_approved', true)->latest()->get() as $review)
+                                        <div class="product-detail-reviews__item">
+                                            <div class="product-detail-reviews__item-info">
+                                                <strong>{{ $review->user->full_name }}</strong>
+                                                <div class="product-detail-rating__stars">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        <span
+                                                            class="product-detail-rating__star {{ $i <= $review->rating ? 'product-detail-rating__star--filled' : '' }}">★</span>
+                                                    @endfor
+                                                </div>
                                                 <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
+                                                    class="product-detail-reviews__item-date">{{ $review->created_at->diffForHumans() }}</span>
                                             </div>
-                                            <span class="product-detail-reviews__item-date">3 ngày trước</span>
-                                        </div>
-                                        <p class="product-detail-reviews__item-text">Sản phẩm chất lượng tốt, giao hàng
-                                            nhanh</p>
-                                    </div>
+                                            <p class="product-detail-reviews__item-text">{{ $review->comment }}</p>
 
-                                    <div class="product-detail-reviews__item">
-                                        <div class="product-detail-reviews__item-info">
-                                            <strong>Nguyễn Trường Giang</strong>
-                                            <div class="product-detail-rating__stars">
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                                <span
-                                                    class="product-detail-rating__star product-detail-rating__star--filled">★</span>
-                                            </div>
-                                            <span class="product-detail-reviews__item-date">1 tuần trước</span>
+                                            {{-- Trả lời đánh giá --}}
+                                            @if ($review->reply)
+                                                <div class="product-detail-reviews__reply">
+                                                    <strong>Phản hồi:</strong>
+                                                    <p>{{ $review->reply }}</p>
+                                                </div>
+                                            @endif
+
+                                            {{-- Admin trả lời (nếu có quyền) --}}
+                                            @auth
+                                                @if (auth()->user()->isAdmin())
+                                                    <form action="{{ route('reviews.reply', $review->review_id) }}"
+                                                        method="POST" class="mt-2">
+                                                        @csrf
+                                                        <textarea name="reply" rows="2" class="form-control mb-1" placeholder="Phản hồi...">{{ $review->reply }}</textarea>
+                                                        <button class="btn btn-sm btn-primary">Gửi phản hồi</button>
+                                                    </form>
+                                                @endif
+                                            @endauth
                                         </div>
-                                        <p class="product-detail-reviews__item-text">Vợt rất tốt và đẹp, đã mua 2 cây để
-                                            chơi với bạn bè</p>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

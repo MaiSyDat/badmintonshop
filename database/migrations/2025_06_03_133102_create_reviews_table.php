@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('user_id')->comment('Khóa ngoại tới bảng users');
             $table->integer('rating')->comment('Điểm đánh giá (1-5 sao)');
             $table->text('comment')->nullable()->comment('Nội dung bình luận');
+            $table->text('reply')->nullable()->comment('Phản hồi từ admin');
             $table->boolean('is_approved')->default(false)->comment('Trạng thái duyệt đánh giá');
             $table->timestamps(); // review_date sẽ dùng created_at
 

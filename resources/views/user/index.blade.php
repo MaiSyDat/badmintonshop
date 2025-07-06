@@ -85,7 +85,7 @@
                     <div class="col l-4 m-6 c-12">
                         <div class="category-card">
                             <div class="category-icon">
-                                <i class="fas fa-bolt"></i> {{-- Bạn có thể tùy biến icon theo từng category nếu muốn --}}
+                                <i class="fas fa-bolt"></i>
                             </div>
                             <h3 class="category-title">{{ $category->category_name }}</h3>
                             <p class="category-description">
@@ -112,15 +112,19 @@
             </div>
             <div class="product-grid row">
                 @foreach ($featuredProducts as $product)
-                    <div class="mb-20 col l-4 m-4 c-6">
+                    <div class="mb-20 col l-4 m-4 c-12">
                         <div class="product-card">
                             <div class="product-image">
                                 <img src="{{ asset($product->main_image_url) }}" alt="{{ $product->product_name }}"
                                     class="product-image">
                                 <div class="new-badge">New</div>
-                                <div class="discount-badge">-10%</div> <!-- Thêm badge giảm giá -->
-                                <button class="wishlist-btn">
-                                    <svg viewBox="0 0 24 24" stroke-width="2">
+                                <div class="discount-badge">-10%</div>
+                                <button
+                                    class="wishlist-btn {{ in_array($product->product_id, $wishlistIds) ? 'active' : '' }}"
+                                    data-product-id="{{ $product->product_id }}">
+                                    <svg viewBox="0 0 24 24" stroke-width="2"
+                                        style="fill: {{ in_array($product->product_id, $wishlistIds) ? 'red' : 'none' }};
+                                            stroke: {{ in_array($product->product_id, $wishlistIds) ? 'red' : '#666' }};">
                                         <path
                                             d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
                                         </path>
@@ -159,15 +163,19 @@
 
             <div class="product-grid row">
                 @foreach ($latestProducts as $product)
-                    <div class="mb-20 col l-4 m-4 c-6">
+                    <div class="mb-20 col l-4 m-4 c-12">
                         <div class="product-card">
                             <div class="product-image">
                                 <img src="{{ asset($product->main_image_url) }}" alt="{{ $product->product_name }}"
                                     class="product-image">
                                 <div class="new-badge">New</div>
-                                <div class="discount-badge">-10%</div> <!-- Thêm badge giảm giá -->
-                                <button class="wishlist-btn">
-                                    <svg viewBox="0 0 24 24" stroke-width="2">
+                                <div class="discount-badge">-10%</div>
+                                <button
+                                    class="wishlist-btn {{ in_array($product->product_id, $wishlistIds) ? 'active' : '' }}"
+                                    data-product-id="{{ $product->product_id }}">
+                                    <svg viewBox="0 0 24 24" stroke-width="2"
+                                        style="fill: {{ in_array($product->product_id, $wishlistIds) ? 'red' : 'none' }};
+                                        stroke: {{ in_array($product->product_id, $wishlistIds) ? 'red' : '#666' }};">
                                         <path
                                             d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
                                         </path>

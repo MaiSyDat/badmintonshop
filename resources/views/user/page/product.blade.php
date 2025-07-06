@@ -3,7 +3,6 @@
 @section('title', 'Sản phẩm')
 
 @section('main')
-    <!-- Breadcrumb -->
     <header class="product-detail-header">
         <div class="container">
             <nav class="product-detail-breadcrumb">
@@ -16,81 +15,55 @@
 
     <div class="prd-container">
         <div class="prd-main">
-            <form action="{{ route('product') }}" method="GET" id="filterForm">
-                <div class="prd-sidebar">
-                    <!-- PRICE FILTER -->
-                    <div class="prd-filter-section">
-                        <div class="prd-filter-header">CHỌN MỨC GIÁ</div>
-                        <div class="prd-filter-content">
-                            @php
-                                $selectedPrices = request('price_filters', []);
-                            @endphp
-                            @foreach ([
+            <!-- FILTER SIDEBAR -->
+            <div class="prd-sidebar" id="filterForm">
+                <div class="prd-filter-section">
+                    <div class="prd-filter-header">CHỌN MỨC GIÁ</div>
+                    <div class="prd-filter-content">
+                        @foreach ([
             'price1' => 'Dưới 1 triệu',
             'price2' => '1 - 2 triệu',
             'price3' => '2 - 3 triệu',
             'price4' => 'Trên 3 triệu',
         ] as $value => $label)
-                                <div class="prd-filter-option {{ in_array($value, $selectedPrices) ? 'checked' : '' }}">
-                                    <input type="checkbox" name="price_filters[]" value="{{ $value }}"
-                                        id="{{ $value }}" {{ in_array($value, $selectedPrices) ? 'checked' : '' }}>
-                                    <label for="{{ $value }}">{{ $label }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <!-- BRAND FILTER -->
-                    <div class="prd-filter-section">
-                        <div class="prd-filter-header">THƯƠNG HIỆU</div>
-                        <div class="prd-filter-content">
-                            @foreach ($brands as $brand)
-                                @php
-                                    $selectedBrands = request('brands', []);
-                                    $isChecked = in_array($brand->brand_id, $selectedBrands);
-                                @endphp
-                                <div class="prd-filter-option {{ $isChecked ? 'checked' : '' }}">
-                                    <input type="checkbox" id="brand_{{ $brand->brand_id }}" name="brands[]"
-                                        value="{{ $brand->brand_id }}" {{ $isChecked ? 'checked' : '' }}>
-                                    <label for="brand_{{ $brand->brand_id }}">{{ $brand->brand_name }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <!-- CATEGORY FILTER -->
-                    <div class="prd-filter-section">
-                        <div class="prd-filter-header">DANH MỤC</div>
-                        <div class="prd-filter-content">
-                            @foreach ($categories as $category)
-                                @php
-                                    $selectedCats = request('categories', []);
-                                    $isChecked = in_array($category->category_id, $selectedCats);
-                                @endphp
-                                <div class="prd-filter-option {{ $isChecked ? 'checked' : '' }}">
-                                    <input type="checkbox" id="categories_{{ $category->category_id }}" name="categories[]"
-                                        value="{{ $category->category_id }}" {{ $isChecked ? 'checked' : '' }}>
-                                    <label
-                                        for="categories_{{ $category->category_id }}">{{ $category->category_name }}</label>
-                                </div>
-                            @endforeach
-                        </div>
+                            <div class="prd-filter-option">
+                                <input type="checkbox" name="price_filters[]" value="{{ $value }}"
+                                    id="{{ $value }}">
+                                <label for="{{ $value }}">{{ $label }}</label>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
-            </form>
 
-            <script>
-                document.querySelectorAll('#filterForm input[type=checkbox]').forEach(el => {
-                    el.addEventListener('change', () => {
-                        document.getElementById('filterForm').submit();
-                    });
-                });
-            </script>
+                <div class="prd-filter-section">
+                    <div class="prd-filter-header">THƯƠNG HIỆU</div>
+                    <div class="prd-filter-content">
+                        @foreach ($brands as $brand)
+                            <div class="prd-filter-option">
+                                <input type="checkbox" id="brand_{{ $brand->brand_id }}" name="brands[]"
+                                    value="{{ $brand->brand_id }}">
+                                <label for="brand_{{ $brand->brand_id }}">{{ $brand->brand_name }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
 
+                <div class="prd-filter-section">
+                    <div class="prd-filter-header">DANH MỤC</div>
+                    <div class="prd-filter-content">
+                        @foreach ($categories as $category)
+                            <div class="prd-filter-option">
+                                <input type="checkbox" id="cat_{{ $category->category_id }}" name="categories[]"
+                                    value="{{ $category->category_id }}">
+                                <label for="cat_{{ $category->category_id }}">{{ $category->category_name }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
 
-            <!-- Main Content -->
+            <!-- MAIN CONTENT -->
             <div class="prd-content">
-                <!-- Brand Logos -->
                 <div class="prd-brands">
                     @foreach ($brands as $brand)
                         <div class="prd-brand-logo">
@@ -99,45 +72,71 @@
                     @endforeach
                 </div>
 
-                <!-- Section Header -->
                 <div class="prd-section-header">
                     <h2 class="prd-section-title">VỢT CẦU LÔNG YONEX</h2>
                     <div class="prd-sort-options">
                         <span>Sắp xếp:</span>
-                        <form action="{{ route('product') }}" method="GET" id="filterForm">
-                            <select class="prd-sort-select" name="sort_by" onchange="this.form.submit()">
-                                <option value="" {{ request('sort_by') == '' ? 'selected' : '' }}>Mặc định</option>
-                                <option value="price_asc" {{ request('sort_by') == 'price_asc' ? 'selected' : '' }}>Giá
-                                    tăng
-                                    dần</option>
-                                <option value="price_desc" {{ request('sort_by') == 'price_desc' ? 'selected' : '' }}>Giá
-                                    giảm
-                                    dần</option>
-                            </select>
-                        </form>
+                        <select class="prd-sort-select" id="sortSelect">
+                            <option value="">Mặc định</option>
+                            <option value="price_asc">Giá tăng dần</option>
+                            <option value="price_desc">Giá giảm dần</option>
+                        </select>
                     </div>
                 </div>
 
-                <!-- Product Grid -->
-                <div class="prd-grid">
-                    @forelse ($products as $product)
-                        <div class="prd-item">
-                            @if ($product->product_extend && $product->product_extend->is_premium)
-                                <div class="prd-premium-badge">Premium</div>
-                            @endif
-                            <a href="{{ route('product-detail', $product->product_id) }}">
-                                <img src="{{ asset($product->main_image_url) }}" alt="{{ $product->product_name }}"
-                                    class="prd-item-image">
-                                <div class="prd-item-name">{{ $product->product_name }}</div>
-                                <div class="prd-item-price">{{ number_format($product->base_price, 0, ',', '.') }} đ
-                                </div>
-                            </a>
-                        </div>
-                    @empty
-                        <p>Không có sản phẩm nào phù hợp.</p>
-                    @endforelse
+                <!-- PRODUCT LIST (AJAX TARGET) -->
+                <div id="productList">
+                    @include('user.page.product_list', ['products' => $products])
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- AJAX SCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function getFilterData() {
+                const formData = new FormData();
+
+                document.querySelectorAll('input[name="price_filters[]"]:checked').forEach(el => {
+                    formData.append('price_filters[]', el.value);
+                });
+
+                document.querySelectorAll('input[name="brands[]"]:checked').forEach(el => {
+                    formData.append('brands[]', el.value);
+                });
+
+                document.querySelectorAll('input[name="categories[]"]:checked').forEach(el => {
+                    formData.append('categories[]', el.value);
+                });
+
+                const sortValue = document.getElementById('sortSelect').value;
+                formData.append('sort_by', sortValue);
+
+                return formData;
+            }
+
+            function fetchProducts() {
+                const formData = getFilterData();
+
+                fetch("{{ route('product.filter') }}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: formData
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById("productList").innerHTML = html;
+                    });
+            }
+
+            document.querySelectorAll('#filterForm input[type=checkbox]').forEach(input => {
+                input.addEventListener('change', fetchProducts);
+            });
+
+            document.getElementById('sortSelect').addEventListener('change', fetchProducts);
+        });
+    </script>
 @endsection

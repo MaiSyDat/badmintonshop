@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\ProductExtend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -82,6 +83,17 @@ class CheckoutController extends Controller
                     'quantity'        => $item->quantity,
                     'price_per_item'  => $item->price,
                 ]);
+                // Giảm số lượng tồn kho
+                $productExtend = ProductExtend::where('product_id', $productId)->first();
+
+                if ($productExtend) {
+                    if ($productExtend->quantity < $item->quantity) {
+                        // Không đủ hàng, throw lỗi để rollback
+                        throw new \Exception("Sản phẩm {$item->name} không đủ số lượng tồn kho.");
+                    }
+
+                    $productExtend->decrement('quantity', $item->quantity);
+                }
             }
 
             $paymentMethod = $request->input('payment_method', 'cod');

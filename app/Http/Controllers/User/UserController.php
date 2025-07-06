@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -45,7 +47,23 @@ class UserController extends Controller
         // Brand all
         $brands = Brand::all();
 
-        return view('user.index', compact('config', 'featuredProducts', 'latestProducts', 'categories', 'brands', 'topCategories', 'nameproduct'));
+        $wishlistIds = [];
+        if (Auth::check()) {
+            $wishlistIds = Wishlist::where('user_id', Auth::id())->pluck('product_id')->toArray();
+        }
+
+
+        return view('user.index', compact('config', 'featuredProducts', 'latestProducts', 'categories', 'brands', 'topCategories', 'nameproduct', 'wishlistIds'));
+    }
+
+    public function news()
+    {
+        return view('user.page.news');
+    }
+
+    public function about()
+    {
+        return view('user.page.about');
     }
 
     private function config()
