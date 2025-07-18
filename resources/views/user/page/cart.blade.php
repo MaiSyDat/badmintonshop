@@ -96,7 +96,23 @@
         <div class="ss_cart-shopee-voucher">
             <i class="fas fa-gift ss_cart-voucher-gift-icon"></i>
             <span>Voucher</span>
-            <button class="ss_cart-voucher-select-btn">Chọn hoặc nhập mã</button>
+
+            <form method="POST" action="{{ route('apply.coupon') }}" class="ss_cart-voucher-form">
+                @csrf
+                <input type="text" name="coupon_code" placeholder="Nhập mã giảm giá" class="ss_cart-voucher-input"
+                    value="{{ old('coupon_code') }}">
+                <button type="submit" class="ss_cart-voucher-apply-btn">Áp dụng</button>
+            </form>
+
+            @if ($errors->has('coupon_code'))
+                <p class="text-danger mt-1">{{ $errors->first('coupon_code') }}</p>
+            @endif
+
+            <!-- Hiển thị kết quả giảm giá -->
+            @if (session('discount_amount'))
+                <p class="text-success mt-1">Đã áp dụng mã! Giảm
+                    {{ number_format(session('discount_amount'), 0, ',', '.') }}đ</p>
+            @endif
         </div>
 
         <!-- Bottom Actions -->
@@ -108,10 +124,17 @@
                 <button class="ss_cart-save-btn">Lưu vào mục Đã thích</button>
             </div>
             <div class="ss_cart-right-actions">
+                @php
+                    $cartTotal = collect($cart)->sum(fn($item) => $item->price * $item->quantity);
+                    $discount = session('applied_coupon.discount_amount', 0);
+                    $discount = min($discount, $cartTotal); // tránh bị âm
+                    $finalTotal = max(0, $cartTotal - $discount);
+                @endphp
+
                 <div class="ss_cart-total-section">
                     <span>Tổng cộng ({{ count($cart) }} sản phẩm): </span>
                     <span class="ss_cart-total-amount" id="cart-total">
-                        ₫{{ number_format(collect($cart)->sum(fn($item) => $item->price * $item->quantity)) }}
+                        ₫{{ number_format($finalTotal) }}
                     </span>
                 </div>
                 <a href="{{ route('checkout.index') }}" class="ss_cart-checkout-btn">Đặt hàng</a>

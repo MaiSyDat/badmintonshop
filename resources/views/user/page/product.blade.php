@@ -73,7 +73,13 @@
                 </div>
 
                 <div class="prd-section-header">
-                    <h2 class="prd-section-title">VỢT CẦU LÔNG YONEX</h2>
+                    <h2 class="prd-section-title">
+                        @if (isset($keyword))
+                            Kết quả tìm kiếm cho: "{{ $keyword }}"
+                        @else
+                            VỢT CẦU LÔNG
+                        @endif
+                    </h2>
                     <div class="prd-sort-options">
                         <span>Sắp xếp:</span>
                         <select class="prd-sort-select" id="sortSelect">

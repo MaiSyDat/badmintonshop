@@ -63,17 +63,29 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $totalBeforeDiscount = collect($order->orderItems)->sum(
+                                fn($item) => $item->price_per_item * $item->quantity,
+                            );
+                            $discountAmount = $totalBeforeDiscount - $order->total_amount;
+                        @endphp
+
                         @foreach ($order->orderItems as $item)
                             <tr>
-                                <td>{{ $item->product->product_name }}</td>
+                                <td>{{ $item->product->product_name ?? 'Sản phẩm đã xoá' }}</td>
                                 <td>{{ $item->quantity }}</td>
-                                <td>{{ number_format($item->product->price, 0, ',', '.') }} ₫</td>
-                                <td>{{ $item->product->sale ?? 0 }}%</td>
+                                <td>{{ number_format($item->price_per_item, 0, ',', '.') }} ₫</td>
+                                <td>
+                                    @if ($loop->first)
+                                        {{ number_format($discountAmount, 0, ',', '.') }} ₫ {{-- Hiển thị một lần --}}
+                                    @endif
+                                </td>
                                 <td class="success-price">
                                     {{ number_format($item->price_per_item * $item->quantity, 0, ',', '.') }} ₫
                                 </td>
                             </tr>
                         @endforeach
+
                     </tbody>
                     <tfoot>
                         <tr>

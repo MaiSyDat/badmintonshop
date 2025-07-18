@@ -95,6 +95,56 @@
                     <a href="{{ route('about') }}" class="nav__link">Giới thệu & Liên hệ</a>
                 </li>
             </ul>
+            <!-- cart layout -->
+            <!-- cart layout -->
+            <div class="nav-cart">
+                <div class="nav-cart__wrap">
+                    <i class="nav-cart__icon fa-solid fa-cart-shopping"></i>
+                    <span class="nav-cart__notice">{{ count($cart) }}</span>
+
+                    <div class="nav-cart__list {{ count($cart) === 0 ? 'nav-cart__list--no-cart' : '' }}">
+                        <h4 class="nav-cart__heading">Sản phẩm đã thêm</h4>
+                        <ul class="nav-cart__list-item">
+                            @forelse ($cart as $item)
+                                <li class="nav-cart__item">
+                                    <img src="{{ asset($item->img) }}" alt="{{ $item->name }}"
+                                        class="nav-cart__img">
+                                    <div class="nav-cart__item-info">
+                                        <div class="nav-cart__item-head">
+                                            <h5 class="nav-cart__item-name">{{ $item->name }}</h5>
+                                            <div class="nav-cart__item-price-wrap">
+                                                <span
+                                                    class="nav-cart__item-price">{{ number_format($item->price) }}đ</span>
+                                                <span class="nav-cart__item-multiply">x</span>
+                                                <span class="nav-cart__item-qnt">{{ $item->quantity }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="nav-cart__item-body">
+                                            <span class="nav-cart__item-description">
+                                                Chất liệu: {{ $item->material ?? 'Đang cập nhật' }}
+                                            </span>
+                                            <form action="{{ route('delete.cart', ['product' => $item->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                <button type="submit" class="nav-cart__item-remove">Xóa</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </li>
+                            @empty
+                                <li class="nav-cart__item">
+                                    <p>Giỏ hàng của bạn đang trống.</p>
+                                </li>
+                            @endforelse
+                        </ul>
+                        @if (count($cart) > 0)
+                            <a href="{{ route('cart.index') }}" class="nav-cart__view-cart btn btn--primary">Xem giỏ
+                                hàng</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
             <div class="nav__actions">
                 <i class="bx bx-search nav__search" id="search-btn"></i>
 
@@ -124,7 +174,7 @@
                             <div class="dropdown__action-content">
                                 <ul class="action__list">
                                     <li>
-                                        <a href="#" class="action__link">
+                                        <a href="{{ route('profile.edit') }}" class="action__link">
                                             <i class="bx bx-user-circle"></i> Trang cá nhân
                                         </a>
                                     </li>
@@ -134,13 +184,13 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('wishlist.index') }}" class="action__link">
-                                            <i class="bx bx-heart"></i> Yêu thích
+                                        <a href="{{ route('orders.my') }}" class="action__link">
+                                            <i class="bx bx-receipt"></i> Đơn hàng của bạn
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="action__link">
-                                            <i class="bx bx-cog"></i> Cài đặt
+                                        <a href="{{ route('wishlist.index') }}" class="action__link">
+                                            <i class="bx bx-heart"></i> Yêu thích
                                         </a>
                                     </li>
 
@@ -209,9 +259,9 @@
 </header>
 
 <div class="search" id="search">
-    <form action="" class="search__form">
+    <form action="{{ route('product') }}" method="GET" class="search__form">
         <i class="bx bx-search search__icon"></i>
-        <input type="search" class="search__input" placeholder="Bạn cần tìm gì hôm nay?">
+        <input type="search" name="keyword" class="search__input" placeholder="Bạn cần tìm gì hôm nay?">
     </form>
 
     <i class="bx bx-x search__close" id="search-close"></i>

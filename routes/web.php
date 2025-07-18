@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\user\CartController;
 use App\Http\Controllers\user\CheckOutController;
+use App\Http\Controllers\user\CouponApplyController;
 use App\Http\Controllers\user\ProductController as UserProductController;
 use App\Http\Controllers\user\ProductDetailController;
 use App\Http\Controllers\user\ReviewController;
@@ -41,6 +42,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,staff'])
     Route::resource('orders', OrderController::class);
     Route::patch('orders/{order}/status', [OrderController::class, 'updateStatus'])
         ->name('orders.updateStatus');
+
+    // QUẢN LÝ ĐÁNH GIÁ
+    Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
+    Route::post('reviews/reply/{review}', [ReviewController::class, 'reply'])->name('reviews.reply');
 });
 
 // HOME
@@ -61,7 +66,6 @@ Route::get('/about', [UserController::class, 'about'])->name('about');
 Route::get('/product-detail/{id}', [ProductDetailController::class, 'index'])->name('product-detail');
 
 // REVIEWS
-Route::resource('reviews', CouponController::class);
 Route::post('/reviews/{product}', [ReviewController::class, 'store'])->middleware('auth')->name('reviews.store');
 Route::post('/reviews/reply/{review}', [ReviewController::class, 'reply'])->middleware('auth')->name('reviews.reply');
 
@@ -73,6 +77,8 @@ Route::group(['prefix' => 'cart'], function () {
     Route::post('/delete/{product}', [CartController::class, 'deleteCart'])->name('delete.cart');
     Route::get('update/{id}/{quantity}', [CartController::class, 'updateCart'])->name('update.cart');
 });
+
+Route::post('/apply-coupon', [CouponApplyController::class, 'apply'])->name('apply.coupon');
 
 Route::middleware('auth')->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
@@ -86,6 +92,10 @@ Route::get('/checkout', [CheckOutController::class, 'index'])->middleware('auth'
 Route::post('/checkout', [CheckOutController::class, 'process'])->name('checkout.process');
 Route::post('/checkout/momo/confirm/{id}', [CheckOutController::class, 'confirmMomo'])->name('checkout.momo.confirm');
 Route::get('/success/{id}', [CheckOutController::class, 'showOrder'])->name('checkout.success');
+
+Route::get('/my-orders', [OrderController::class, 'myOrders'])->middleware('auth')->name('orders.my');
+
+Route::post('/user/orders/{id}/cancel', [CheckoutController::class, 'cancelOrder'])->name('user.cancelOrder');
 
 // AUTH\
 Route::middleware('auth')->group(function () {

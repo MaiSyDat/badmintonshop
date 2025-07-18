@@ -202,6 +202,22 @@
     color: #666;
 }
 
+.ckout-discount {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding: 10px 0;
+    font-weight: 500;
+    border-bottom: 1px solid #dee2e6;
+}
+.ckout-discount-label,
+.ckout-total-label {
+    color: var(--price-color);
+}
+.ckout-discount-amount {
+    color: var(--price-color);
+}
+
 .ckout-total {
     display: flex;
     justify-content: space-between;
@@ -211,7 +227,7 @@
 }
 
 .ckout-total-price {
-    color: #007bff;
+    color: var(--price-color);
     font-size: 20px;
 }
 

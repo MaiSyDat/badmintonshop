@@ -23,13 +23,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
-        // Share dữ liệu cho mọi view
+        // Chia sẻ danh mục
         View::share('categories', Category::all());
+
+        // Chia sẻ thương hiệu
         View::share('brands', Brand::all());
+
+        // Chia sẻ sản phẩm mới
         View::share('nameproduct', Product::where('is_active', true)
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get());
+
+        // Chia sẻ giỏ hàng từ session (nếu có)
+        View::composer('*', function ($view) {
+            $cart = session('cart', []); // hoặc Session::get('cart', []);
+            $view->with('cart', $cart);
+        });
     }
 }

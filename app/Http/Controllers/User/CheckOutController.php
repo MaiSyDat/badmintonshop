@@ -54,17 +54,35 @@ class CheckoutController extends Controller
                 ]);
             }
 
-            // Tính tổng tiền
-            $totalAmount = collect($cart)->sum(function ($item) {
-                return $item->quantity * $item->price;
-            });
+            // Tính tổng tiền ban đầu
+            $totalAmount = collect($cart)->sum(fn($item) => $item->quantity * $item->price);
+            $discount = 0;
+
+            // Tính giảm giá nếu có mã hợp lệ
+            if (session()->has('applied_coupon')) {
+                $couponData = session('applied_coupon');
+                $coupon = \App\Models\Coupon::find($couponData['coupon_id']);
+
+                if ($coupon && $coupon->is_active && now()->between($coupon->start_date, $coupon->end_date)) {
+                    if ($totalAmount >= $coupon->min_order_amount) {
+                        $discount = $coupon->discount_type === 'Percentage'
+                            ? $totalAmount * ($coupon->discount_value / 100)
+                            : $coupon->discount_value;
+
+                        $discount = min($discount, $totalAmount); // Không để âm
+                    }
+                }
+            }
+
+            // Tính tổng tiền sau giảm
+            $finalAmount = $totalAmount - $discount;
 
             // Tạo đơn hàng
             $order = Order::create([
                 'order_id'         => Str::uuid(),
                 'user_id'          => $user->user_id,
                 'order_date'       => now(),
-                'total_amount'     => $totalAmount,
+                'total_amount'     => $finalAmount,
                 'shipping_address' => $user->address,
                 'billing_address'  => $user->address,
                 'phone_number'     => $user->phone_number,
@@ -74,7 +92,17 @@ class CheckoutController extends Controller
                 'notes'            => $request->input('notes'),
             ]);
 
-            // Lưu từng item vào bảng order_items
+            // Lưu thông tin mã giảm giá nếu có
+            if (session()->has('applied_coupon')) {
+                \App\Models\AppliedCoupon::create([
+                    'applied_coupon_id' => Str::uuid(),
+                    'order_id'          => $order->order_id,
+                    'coupon_id'         => $couponData['coupon_id'],
+                    'discount_amount'   => $discount,
+                ]);
+            }
+
+            // Lưu các sản phẩm vào bảng order_items
             foreach ($cart as $productId => $item) {
                 OrderItem::create([
                     'order_item_id'   => Str::uuid(),
@@ -83,25 +111,26 @@ class CheckoutController extends Controller
                     'quantity'        => $item->quantity,
                     'price_per_item'  => $item->price,
                 ]);
-                // Giảm số lượng tồn kho
-                $productExtend = ProductExtend::where('product_id', $productId)->first();
 
+                // Trừ tồn kho
+                $productExtend = ProductExtend::where('product_id', $productId)->first();
                 if ($productExtend) {
                     if ($productExtend->quantity < $item->quantity) {
-                        // Không đủ hàng, throw lỗi để rollback
                         throw new \Exception("Sản phẩm {$item->name} không đủ số lượng tồn kho.");
                     }
-
                     $productExtend->decrement('quantity', $item->quantity);
                 }
             }
 
-            $paymentMethod = $request->input('payment_method', 'cod');
             DB::commit();
-            session()->forget('cart');
 
+            // Xóa session giỏ hàng và mã giảm giá
+            session()->forget('cart');
+            session()->forget('applied_coupon');
+
+            // Điều hướng thanh toán
+            $paymentMethod = $request->input('payment_method', 'cod');
             if ($paymentMethod === 'momo') {
-                // Mô phỏng trang thanh toán MoMo
                 return view('user.page.payment_demo', ['order' => $order]);
             }
 
@@ -109,7 +138,6 @@ class CheckoutController extends Controller
                 ->with('success', 'Đặt hàng thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
-            \Log::error('Lỗi khi đặt hàng: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Đã xảy ra lỗi khi xử lý đơn hàng. Vui lòng thử lại sau.');
         }
     }
@@ -132,5 +160,22 @@ class CheckoutController extends Controller
         $order = Order::with(['orderItems.product'])->findOrFail($id);
 
         return view('user.page.success', compact('order'));
+    }
+
+    public function cancelOrder($id)
+    {
+        $order = Order::where('order_id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
+        if (in_array($order->order_status, ['Cancelled', 'Delivered'])) {
+            return redirect()->back()->with('error', 'Không thể hủy đơn hàng đã giao hoặc đã hủy.');
+        }
+
+        $order->update([
+            'order_status' => 'Cancelled',
+        ]);
+
+        return redirect()->back()->with('success', 'Đơn hàng đã được hủy.');
     }
 }

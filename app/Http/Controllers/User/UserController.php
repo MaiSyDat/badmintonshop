@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
         $config = $this->config();
 
@@ -23,38 +23,50 @@ class UserController extends Controller
             ->take(3)
             ->get();
 
-        // 6 sản phẩm mới nhất (ngoại trừ 3 sản phẩm nổi bật nếu muốn)
+        // 6 sản phẩm mới nhất
         $latestProducts = Product::where('is_active', true)
             ->orderBy('created_at', 'desc')
-            // ->skip(3) // Bỏ qua 3 sản phẩm đầu nếu trùng featured
             ->take(6)
             ->get();
 
-        // 3 danh mục có nhiều sản phẩm nhất
+        // Top 3 danh mục nhiều sản phẩm
         $topCategories = Category::withCount('products')
             ->orderBy('products_count', 'desc')
             ->take(3)
             ->get();
 
-        // all categories
+        // Tất cả danh mục và thương hiệu
         $categories = Category::all();
+        $brands = Brand::all();
 
+        // Gợi ý sản phẩm mới
         $nameproduct = Product::where('is_active', true)
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get();
 
-        // Brand all
-        $brands = Brand::all();
-
+        // Yêu thích
         $wishlistIds = [];
         if (Auth::check()) {
             $wishlistIds = Wishlist::where('user_id', Auth::id())->pluck('product_id')->toArray();
         }
 
+        // Giỏ hàng
+        $cart = session('cart', []);
 
-        return view('user.index', compact('config', 'featuredProducts', 'latestProducts', 'categories', 'brands', 'topCategories', 'nameproduct', 'wishlistIds'));
+        return view('user.index', compact(
+            'config',
+            'featuredProducts',
+            'latestProducts',
+            'categories',
+            'brands',
+            'topCategories',
+            'nameproduct',
+            'wishlistIds',
+            'cart'
+        ));
     }
+
 
     public function news()
     {

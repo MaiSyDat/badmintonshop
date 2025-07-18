@@ -14,9 +14,25 @@ class ProductController extends Controller
     //
     public function index(Request $request)
     {
-        $query = Product::where('is_active', true);
+        $query = Product::with(['brand', 'category'])
+            ->where('is_active', true);
 
-        // Filter theo brand
+        // Tìm kiếm theo từ khóa: tên sản phẩm, danh mục, hãng
+        if ($request->filled('keyword')) {
+            $keyword = trim($request->keyword);
+
+            $query->where(function ($q) use ($keyword) {
+                $q->where('product_name', 'like', "%{$keyword}%")
+                    ->orWhereHas('category', function ($cat) use ($keyword) {
+                        $cat->where('category_name', 'like', "%{$keyword}%");
+                    })
+                    ->orWhereHas('brand', function ($brand) use ($keyword) {
+                        $brand->where('brand_name', 'like', "%{$keyword}%");
+                    });
+            });
+        }
+
+        //  Filter theo brand
         if ($request->filled('brands')) {
             $query->whereIn('brand_id', $request->brands);
         }
@@ -26,8 +42,8 @@ class ProductController extends Controller
             $query->whereIn('category_id', $request->categories);
         }
 
+        // Filter theo mức giá
         $priceFilters = $request->input('price_filters', []);
-
         if (!empty($priceFilters)) {
             $query->where(function ($q) use ($priceFilters) {
                 if (in_array('price1', $priceFilters)) {
@@ -45,8 +61,8 @@ class ProductController extends Controller
             });
         }
 
+        // Sắp xếp
         $sortBy = $request->input('sort_by');
-
         if ($sortBy === 'price_asc') {
             $query->orderBy('base_price', 'asc');
         } elseif ($sortBy === 'price_desc') {
@@ -55,14 +71,22 @@ class ProductController extends Controller
             $query->latest();
         }
 
+        // Phân trang sản phẩm
+        $products = $query->paginate(12);
 
-        $products = $query->paginate(6);
-
+        // Các dữ liệu khác
         $categories = Category::all();
         $brands = Brand::all();
 
-        return view('user.page.product', compact('products', 'categories', 'brands'));
+        return view('user.page.product', [
+            'products' => $products,
+            'categories' => $categories,
+            'brands' => $brands,
+            'keyword' => $request->keyword ?? null,
+            'searchMode' => $request->filled('keyword'),
+        ]);
     }
+
 
     public function ajaxFilter(Request $request)
     {

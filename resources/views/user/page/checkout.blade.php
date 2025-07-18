@@ -94,19 +94,36 @@
                                 @endforelse
                             </div>
 
+                            @php
+                                $subtotal = collect($cart)->sum(fn($item) => $item->price * $item->quantity);
+                                $discount = 0;
+
+                                if (session()->has('applied_coupon')) {
+                                    $applied = session('applied_coupon');
+                                    $discount = $applied['discount_amount'] ?? 0;
+                                }
+
+                                $total = max($subtotal - $discount, 0); // không để âm
+                            @endphp
+
                             <div class="ckout-subtotal">
                                 <span class="ckout-subtotal-label">Tạm tính</span>
-                                <span class="ckout-subtotal-price">
-                                    ₫{{ number_format(collect($cart)->sum(fn($item) => $item->price * $item->quantity)) }}
-                                </span>
+                                <span class="ckout-subtotal-price">₫{{ number_format($subtotal, 0, ',', '.') }}</span>
                             </div>
+
+                            @if ($discount > 0)
+                                <div class="ckout-discount">
+                                    <span class="ckout-discount-label">Giảm giá</span>
+                                    <span
+                                        class="ckout-discount-amount">-₫{{ number_format($discount, 0, ',', '.') }}</span>
+                                </div>
+                            @endif
 
                             <div class="ckout-total">
                                 <span class="ckout-total-label">TỔNG</span>
-                                <span class="ckout-total-price">
-                                    ₫{{ number_format(collect($cart)->sum(fn($item) => $item->price * $item->quantity)) }}
-                                </span>
+                                <span class="ckout-total-price">₫{{ number_format($total, 0, ',', '.') }}</span>
                             </div>
+
                         </div>
                     </div>
 

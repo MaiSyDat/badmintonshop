@@ -122,8 +122,7 @@
                                                 <div class="d-flex gap-2 mb-3">
                                                     <button type="submit" name="action" value="add"
                                                         class="product-detail-btn product-detail-btn--primary product-detail-btn--large">Thêm
-                                                        vào
-                                                        giỏ</button>
+                                                        vào giỏ</button>
                                                     <button type="submit" name="action" value="buy_now"
                                                         class="product-detail-btn product-detail-btn--secondary product-detail-btn--large">Mua
                                                         ngay</button>
@@ -234,32 +233,41 @@
                                     </div>
                                 </div>
 
+                                {{-- ========== FORM ĐÁNH GIÁ ========== --}}
                                 <div class="product-detail-reviews__form">
                                     <h4>Bạn đánh giá sao về sản phẩm này?</h4>
-                                    <form action="{{ route('reviews.store', $product->product_id) }}" method="POST">
-                                        @csrf
-                                        <div class="form-group mb-2">
-                                            <label for="rating">Đánh giá:</label>
-                                            <div class="product-detail-rating__stars">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <input type="radio" name="rating" id="star{{ $i }}"
-                                                        value="{{ $i }}" required hidden>
-                                                    <label for="star{{ $i }}"
-                                                        class="product-detail-rating__star">★</label>
-                                                @endfor
-                                            </div>
-                                        </div>
-                                        <div class="form-group mb-2">
-                                            <label for="comment">Bình luận:</label>
-                                            <textarea name="comment" class="form-control" rows="3" required></textarea>
-                                        </div>
-                                        <button class="product-detail-btn product-detail-btn--primary">Gửi đánh
-                                            giá</button>
-                                    </form>
+
+                                    @auth
+                                        @if ($hasPurchased && !$hasReviewed)
+                                            <form action="{{ route('reviews.store', $product->product_id) }}" method="POST">
+                                                @csrf
+                                                <div class="form-group mb-2">
+                                                    <label for="rating">Đánh giá:</label>
+                                                    <div class="product-detail-rating__stars">
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            <input type="radio" name="rating"
+                                                                id="star{{ $i }}" value="{{ $i }}"
+                                                                required hidden>
+                                                            <label for="star{{ $i }}"
+                                                                class="product-detail-rating__star">★</label>
+                                                        @endfor
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="comment">Bình luận:</label>
+                                                    <textarea name="comment" class="form-control" rows="3" required></textarea>
+                                                </div>
+                                                <button class="product-detail-btn product-detail-btn--primary">Gửi đánh
+                                                    giá</button>
+                                            </form>
+                                        @endif
+                                    @else
+                                    @endauth
                                 </div>
 
+                                {{-- ========== DANH SÁCH ĐÁNH GIÁ ========== --}}
                                 <div class="product-detail-reviews__list">
-                                    @foreach ($product->reviews()->where('is_approved', true)->latest()->get() as $review)
+                                    @foreach ($reviews as $review)
                                         <div class="product-detail-reviews__item">
                                             <div class="product-detail-reviews__item-info">
                                                 <strong>{{ $review->user->full_name }}</strong>
@@ -274,7 +282,7 @@
                                             </div>
                                             <p class="product-detail-reviews__item-text">{{ $review->comment }}</p>
 
-                                            {{-- Trả lời đánh giá --}}
+                                            {{-- Nếu có phản hồi từ admin --}}
                                             @if ($review->reply)
                                                 <div class="product-detail-reviews__reply">
                                                     <strong>Phản hồi:</strong>
@@ -282,7 +290,7 @@
                                                 </div>
                                             @endif
 
-                                            {{-- Admin trả lời (nếu có quyền) --}}
+                                            {{-- Form phản hồi của admin --}}
                                             @auth
                                                 @if (auth()->user()->isAdmin())
                                                     <form action="{{ route('reviews.reply', $review->review_id) }}"
@@ -296,6 +304,7 @@
                                         </div>
                                     @endforeach
                                 </div>
+
                             </div>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -35,5 +36,16 @@ class OrderController extends Controller
         $order->save();
 
         return back()->with('success', 'Đã cập nhật trạng thái đơn hàng.');
+    }
+
+    public function myOrders()
+    {
+        $userId = Auth::id();
+        $orders = Order::with('orderItems.product')
+            ->where('user_id', $userId)
+            ->latest()
+            ->get();
+
+        return view('user.page.my_order', compact('orders'));
     }
 }

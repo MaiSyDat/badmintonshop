@@ -11,6 +11,12 @@
     --body-color: #fafdff;
     --price-color: #dc2626;
 
+    --order-pending: #f0ad4e; /* cam vàng */
+    --order-confirmed: #5bc0de; /* xanh nhạt */
+    --order-shipped: #0275d8; /* xanh đậm */
+    --order-delivered: #5cb85c; /* xanh lá */
+    --order-cancelled: #d9534f; /* đỏ */
+
     /* text style */
     --primary-font: "Roboto", sans-serif;
     --font-normal: 500;
@@ -53,4 +59,37 @@ ul {
 
 .mt-20 {
     margin-top: 20px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    color: #fff;
+    text-align: center;
+}
+
+.bg-warning {
+    background-color: var(--order-pending);
+}
+.bg-info {
+    background-color: var(--order-confirmed);
+}
+.bg-primary {
+    background-color: var(--order-shipped);
+}
+.bg-success {
+    background-color: var(--order-delivered);
+}
+.bg-danger {
+    background-color: var(--order-cancelled);
+}
+
+.disabled-select {
+    pointer-events: none;
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
 }

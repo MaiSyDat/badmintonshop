@@ -184,6 +184,29 @@
     font-size: 14px;
 }
 
+.ss_cart-voucher-form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.ss_cart-voucher-input {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 8px;
+    flex: 1;
+}
+
+.ss_cart-voucher-apply-btn {
+    padding: 6px 12px;
+    background-color: var(--price-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 /* Shopee Voucher and Xu */
 .ss_cart-shopee-voucher {
     display: flex;

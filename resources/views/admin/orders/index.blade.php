@@ -96,12 +96,21 @@
                                             {{ $order->payment_status == 'Paid' ? 'Đã thanh toán' : 'Chưa thanh toán' }}
                                         </span>
                                     </td>
+                                    @php
+                                        $isFinalStatus = in_array($order->order_status, [
+                                            'Cancelled',
+                                            'Delivered',
+                                            'Shipped',
+                                        ]);
+                                    @endphp
+
                                     <td>
                                         <form action="{{ route('admin.orders.updateStatus', $order->order_id) }}"
                                             method="POST" onchange="this.submit()">
                                             @csrf
                                             @method('PATCH')
-                                            <select name="order_status" class="form-select form-select-sm">
+                                            <select name="order_status" class="form-select form-select-sm"
+                                                {{ $isFinalStatus ? 'disabled' : '' }}>
                                                 <option value="Pending"
                                                     {{ $order->order_status == 'Pending' ? 'selected' : '' }}>Chờ xử lý
                                                 </option>
@@ -111,12 +120,22 @@
                                                 <option value="Shipped"
                                                     {{ $order->order_status == 'Shipped' ? 'selected' : '' }}>Đã giao
                                                 </option>
+                                                <option value="Delivered"
+                                                    {{ $order->order_status == 'Delivered' ? 'selected' : '' }}>Giao hàng
+                                                    thành công</option>
                                                 <option value="Cancelled"
                                                     {{ $order->order_status == 'Cancelled' ? 'selected' : '' }}>Đã hủy
                                                 </option>
                                             </select>
+
+                                            {{-- Nếu bị disabled, vẫn gửi dữ liệu --}}
+                                            @if ($isFinalStatus)
+                                                <input type="hidden" name="order_status"
+                                                    value="{{ $order->order_status }}">
+                                            @endif
                                         </form>
                                     </td>
+
                                 </tr>
                             @empty
                                 <tr>

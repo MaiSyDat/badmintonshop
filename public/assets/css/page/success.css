@@ -489,11 +489,6 @@
     transform: translateX(-5px);
 }
 
-/* Form styling */
-form {
-    margin: 2rem 0;
-}
-
 /* MoMo brand colors and styling */
 .success-payment-demo {
     border-top: 4px solid #a90329;

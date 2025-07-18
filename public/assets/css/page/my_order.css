@@ -1,0 +1,264 @@
+.myorder-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.myorder-store-section {
+    background: white;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.myorder-store-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.myorder-store-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+.myorder-store-badge--mall {
+    background-color: #ff6b35;
+}
+
+.myorder-store-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.myorder-chat-btn,
+.myorder-shop-btn {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.myorder-chat-btn:hover,
+.myorder-shop-btn:hover {
+    background-color: #f8f9fa;
+}
+
+.myorder-delivery-info {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.myorder-delivery-icon {
+    color: #52c41a;
+}
+
+.myorder-info-icon {
+    color: #1890ff;
+    cursor: pointer;
+}
+
+.myorder-return-policy {
+    color: #52c41a;
+    font-weight: bold;
+}
+
+.myorder-status-cancelled {
+    color: #ff4d4f;
+    font-weight: bold;
+}
+
+.myorder-product-item {
+    display: flex;
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    gap: 15px;
+}
+
+.myorder-product-item:last-of-type {
+    border-bottom: none;
+}
+
+.myorder-product-image {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.myorder-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #f0f0f0;
+}
+
+.myorder-product-info {
+    flex: 1;
+}
+
+.myorder-product-title {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.myorder-product-variant,
+.myorder-product-quantity {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.myorder-product-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    min-width: 100px;
+}
+
+.myorder-original-price {
+    font-size: 12px;
+    color: #999;
+    text-decoration: line-through;
+    margin-bottom: 4px;
+}
+
+.myorder-price {
+    font-size: 16px;
+    color: #ff4757;
+    font-weight: bold;
+}
+
+.myorder-store-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 15px 20px;
+    background-color: #fafafa;
+    font-size: 12px;
+}
+
+.myorder-store-info {
+    color: #666;
+}
+
+.myorder-store-info p {
+    margin-bottom: 4px;
+}
+
+.myorder-store-total {
+    text-align: right;
+}
+
+.myorder-total-price {
+    font-size: 18px;
+    color: #ff4757;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.myorder-action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 15px 20px;
+}
+
+.myorder-btn {
+    padding: 16px 30px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    background-color: var(--price-color);
+    color: #fff;
+}
+
+.myorder-btn-secondary {
+    background-color: white;
+    color: #666;
+}
+
+.myorder-btn-secondary:hover {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .myorder-container {
+        padding: 10px;
+    }
+
+    .myorder-store-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .myorder-delivery-info {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+
+    .myorder-product-item {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .myorder-product-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .myorder-product-price {
+        align-items: flex-start;
+    }
+
+    .myorder-store-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .myorder-action-buttons {
+        flex-direction: column;
+    }
+
+    .myorder-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .myorder-product-title {
+        font-size: 13px;
+    }
+
+    .myorder-store-name {
+        font-size: 14px;
+    }
+
+    .myorder-total-price {
+        font-size: 16px;
+    }
+}

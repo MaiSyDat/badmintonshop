@@ -40,6 +40,8 @@
     <link rel="stylesheet" href="../assets/css/page/product.css">
     <link rel="stylesheet" href="../assets/css/page/news.css">
     <link rel="stylesheet" href="../assets/css/page/about.css">
+    <link rel="stylesheet" href="../assets/css/page/profile.css">
+    <link rel="stylesheet" href="../assets/css/page/my_order.css">
     <link rel="stylesheet" href="../assets/css/auth/auth.css">
     <link rel="stylesheet" href="../assets/css/component/footer.css">
 

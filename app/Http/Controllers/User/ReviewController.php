@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
+    public function index()
+    {
+        $reviews = Review::with(['product', 'user'])->latest()->get();
+        return view('admin.review_manage.review_manage', compact('reviews'));
+    }
+
     // Lưu đánh giá từ người dùng
     public function store(Request $request, $product_id)
     {
