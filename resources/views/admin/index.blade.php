@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                             <span class="fw-semibold d-block mb-1">Tổng doanh thu</span>
-                            <h3 class="card-title mb-2">{{ number_format($totalRevenue, 2) }}VNĐ</h3>
+                            <h3 class="card-title mb-2">{{ number_format($totalRevenue, 0, ',', '.') }}VNĐ</h3>
                         </div>
                     </div>
                 </div>

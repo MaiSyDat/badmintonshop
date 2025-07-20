@@ -30,7 +30,6 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success', 'Đã thêm vào giỏ');
     }
 
-
     public function deleteCart($id, Cart $cart)
     {
         $cart->removeItem($id);

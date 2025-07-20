@@ -46,15 +46,15 @@
                     <div class="ckout-infor">
                         <div class="ckout-form-group">
                             <label for="fullname">Họ và Tên <span class="ckout-required">*</span></label>
-                            <input type="text" id="fullname" name="fullname"
-                                value="{{ old('fullname', $user->full_name) }}" placeholder="Họ tên người nhận hàng"
+                            <input type="text" id="fullname" name="full_name"
+                                value="{{ old('full_name', $user->full_name) }}" placeholder="Họ tên người nhận hàng"
                                 required>
                         </div>
 
                         <div class="ckout-form-group">
                             <label for="phone">Số điện thoại <span class="ckout-required">*</span></label>
-                            <input type="tel" id="phone" name="phone"
-                                value="{{ old('phone', $user->phone_number) }}" placeholder="Số điện thoại liên hệ"
+                            <input type="tel" id="phone" name="phone_number"
+                                value="{{ old('phone_number', $user->phone_number) }}" placeholder="Số điện thoại liên hệ"
                                 required>
                         </div>
 

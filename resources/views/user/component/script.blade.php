@@ -5,3 +5,4 @@
 @endif
 <script src="../assets/js/page/product-detail.js"></script>
 <script src="../assets/js/page/cart.js"></script>
+<script src="../assets/js/component/nav.js"></script>

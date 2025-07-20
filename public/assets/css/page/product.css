@@ -210,42 +210,49 @@
 }
 
 /* pagination */
-.pagination-wrapper nav {
+.pagination-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 24px;
 }
 
-.pagination-wrapper .relative.inline-flex {
+.pagination-wrapper ul {
     display: flex;
+    list-style: none;
     gap: 6px;
+    padding: 0;
+    margin: 0;
 }
 
-.pagination-wrapper .relative.inline-flex a,
-.pagination-wrapper .relative.inline-flex span {
-    padding: 5px 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: #fff;
-    color: #000;
+.pagination-wrapper li,
+.pagination-wrapper a {
+    color: var(--title-color);
+    background-color: #fff;
     text-decoration: none;
+    font-weight: 500;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.2s ease;
 }
 
-.pagination-wrapper .relative.inline-flex span[aria-current="page"] {
-    background: #000;
+.pagination-wrapper a:hover {
+    background-color: var(--primary-one);
     color: #fff;
-    border-color: #000;
+    border-color: var(--primary-one);
 }
 
-.pagination-wrapper svg {
-    display: none; /* Ẩn icon mũi tên SVG */
+.pagination-wrapper li.active,
+.pagination-wrapper li[aria-current="page"] {
+    background-color: var(--primary-one);
+    color: #fff;
+    border-color: var(--primary-one);
 }
 
-/* Ẩn phần mô tả ví dụ "Showing 1 to 6 of 7 results" */
-.pagination-wrapper .sm\\:flex-1,
-.pagination-wrapper .text-sm {
-    display: none !important;
+.pagination-wrapper li.disabled {
+    color: var(--text-color);
+    background-color: #f3f3f3;
+    border-color: #e0e0e0;
+    cursor: not-allowed;
 }
 
 /* Responsive */

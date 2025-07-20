@@ -82,7 +82,6 @@ class UserController extends Controller
     {
         return [
             'js' => [
-                '../assets/js/component/nav.js',
                 '../assets/js/component/slider.js',
                 '../assets/js/page/home.js',
             ]

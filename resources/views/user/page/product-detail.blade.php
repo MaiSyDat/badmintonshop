@@ -79,18 +79,20 @@
                                             $variant = $product->variants->first();
                                             $discount = $variant->discount ?? 0;
                                             $basePrice = $product->base_price;
-                                            $originalPrice = $basePrice + $discount;
+
+                                            $finalPrice = max(0, $basePrice - $discount); // không để âm
                                             $discountPercent =
-                                                $originalPrice > 0 ? round(($discount / $originalPrice) * 100) : 0;
+                                                $basePrice > 0 ? round(($discount / $basePrice) * 100) : 0;
                                         @endphp
 
                                         <div class="product-detail-price">
                                             <span class="product-detail-price__current">
-                                                {{ number_format($basePrice, 0, ',', '.') }}₫
+                                                {{ number_format($finalPrice, 0, ',', '.') }}₫
                                             </span>
+
                                             @if ($discount > 0)
                                                 <span class="product-detail-price__original">
-                                                    {{ number_format($originalPrice, 0, ',', '.') }}₫
+                                                    {{ number_format($basePrice, 0, ',', '.') }}₫
                                                 </span>
                                                 <span class="product-detail-price__discount">
                                                     -{{ $discountPercent }}%

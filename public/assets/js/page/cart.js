@@ -1,3 +1,40 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const plusButtons = document.querySelectorAll(".ss_cart-plus");
+    const minusButtons = document.querySelectorAll(".ss_cart-minus");
+
+    plusButtons.forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const container = btn.closest(".ss_cart-quantity-control");
+            const input = container.querySelector(".ss_cart-qty-input");
+            const productId = container.getAttribute("data-id");
+            let quantity = parseInt(input.value);
+
+            if (!isNaN(quantity)) {
+                quantity += 1;
+                updateCart(productId, quantity, input);
+            }
+        });
+    });
+
+    minusButtons.forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const container = btn.closest(".ss_cart-quantity-control");
+            const input = container.querySelector(".ss_cart-qty-input");
+            const productId = container.getAttribute("data-id");
+            let quantity = parseInt(input.value);
+
+            if (!isNaN(quantity) && quantity > 1) {
+                quantity -= 1;
+                updateCart(productId, quantity, input);
+            }
+        });
+    });
+});
+
+function formatCurrency(number) {
+    return number.toLocaleString("vi-VN");
+}
+
 function updateCart(productId, quantity, inputElement) {
     fetch(`/cart/update/${productId}/${quantity}`, {
         method: "GET",

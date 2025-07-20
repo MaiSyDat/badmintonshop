@@ -13,7 +13,10 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $totalRevenue = Order::where('order_status', 'completed')->sum('total_amount');
+        $totalRevenue = Order::where('payment_status', 'Paid')
+            ->whereIn('order_status', ['Shipped', 'Delivered'])
+            ->sum('total_amount');
+
         $totalOrders = Order::count();
         $totalUsers = User::count();
         $totalProducts = Product::count();

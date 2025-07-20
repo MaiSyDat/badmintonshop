@@ -112,6 +112,14 @@
             </div>
             <div class="product-grid row">
                 @foreach ($featuredProducts as $product)
+                    @php
+                        $variant = $product->variants->first();
+                        $discount = $variant->discount ?? 0;
+                        $basePrice = $product->base_price;
+
+                        $finalPrice = max(0, $basePrice - $discount); // không để âm
+                        $discountPercent = $basePrice > 0 ? round(($discount / $basePrice) * 100) : 0;
+                    @endphp
                     <div class="mb-20 col l-4 m-4 c-12">
                         <div class="product-card">
                             <div class="product-image">
@@ -138,7 +146,7 @@
                                     <div class="color-dot blue"></div>
                                 </div>
                                 <div class="product-name">{{ $product->product_name }}</div>
-                                <div class="product-price">{{ number_format($product->base_price, 0, ',', '.') }}₫</div>
+                                <div class="product-price">{{ number_format($finalPrice, 0, ',', '.') }}₫</div>
                                 <a href="{{ route('product-detail', $product->product_id) }}"
                                     class="buy-now-btn btn-primary">Mua
                                     ngay</a> <!-- Thêm nút mua ngay -->
@@ -163,6 +171,14 @@
 
             <div class="product-grid row">
                 @foreach ($latestProducts as $product)
+                    @php
+                        $variant = $product->variants->first();
+                        $discount = $variant->discount ?? 0;
+                        $basePrice = $product->base_price;
+
+                        $finalPrice = max(0, $basePrice - $discount); // không để âm
+                        $discountPercent = $basePrice > 0 ? round(($discount / $basePrice) * 100) : 0;
+                    @endphp
                     <div class="mb-20 col l-4 m-4 c-12">
                         <div class="product-card">
                             <div class="product-image">
@@ -189,7 +205,7 @@
                                     <div class="color-dot blue"></div>
                                 </div>
                                 <div class="product-name">{{ $product->product_name }}</div>
-                                <div class="product-price">{{ number_format($product->base_price, 0, ',', '.') }}₫</div>
+                                <div class="product-price">{{ number_format($finalPrice, 0, ',', '.') }}₫</div>
                                 <a href="{{ route('product-detail', $product->product_id) }}"
                                     class="buy-now-btn btn-primary">Mua
                                     ngay</a> <!-- Thêm nút mua ngay -->
@@ -200,7 +216,7 @@
             </div>
 
             <div class="load-more">
-                <button class="load-more-btn">View More ▼</button>
+                <a href="{{ route('product') }}" class="load-more-btn">Xem thêm ▼</a>
             </div>
         </div>
     </section>

@@ -72,7 +72,7 @@ class ProductController extends Controller
         }
 
         // Phân trang sản phẩm
-        $products = $query->paginate(12);
+        $products = $query->paginate(6);
 
         // Các dữ liệu khác
         $categories = Category::all();

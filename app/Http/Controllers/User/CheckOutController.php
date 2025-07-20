@@ -38,19 +38,19 @@ class CheckoutController extends Controller
             // Nếu thiếu thông tin người dùng thì validate và cập nhật
             if (!$user->phone_number || !$user->address || !$user->full_name) {
                 $request->validate([
-                    'fullname' => 'required|string|max:255',
-                    'phone_number' => 'required|string|max:20',
-                    'address' => 'required|string|max:255',
+                    'full_name'     => 'required|string|max:255',
+                    'phone_number'  => 'required|string|max:20',
+                    'address'       => 'required|string|max:255',
                 ], [
-                    'fullname.required' => 'Vui lòng nhập họ tên.',
+                    'full_name.required' => 'Vui lòng nhập họ tên.',
                     'phone_number.required' => 'Vui lòng nhập số điện thoại.',
                     'address.required' => 'Vui lòng nhập địa chỉ.',
                 ]);
 
                 $user->update([
-                    'full_name'     => $request->input('fullname'),
-                    'phone_number'  => $request->input('phone_number'),
-                    'address'       => $request->input('address'),
+                    'full_name'    => $request->input('full_name'),
+                    'phone_number' => $request->input('phone_number'),
+                    'address'      => $request->input('address'),
                 ]);
             }
 

@@ -56,15 +56,6 @@ document.querySelectorAll(".color-dot").forEach((dot) => {
 });
 
 // =============================
-// 3. LOAD THÊM SẢN PHẨM
-// =============================
-document
-    .querySelector(".load-more-btn")
-    ?.addEventListener("click", function () {
-        alert("Đang tải thêm vợt cầu lông...");
-    });
-
-// =============================
 // 4. SLIDER TRONG TRANG HOME
 // =============================
 let currentHomeSlideIndex = 0;

@@ -37,6 +37,12 @@
         <!-- Store Section -->
         <div class="ss_cart-store-section">
             @foreach ($cart as $item)
+                @php
+                    $basePrice = $item->base_price ?? $item->price;
+                    $discount = $item->discount ?? 0;
+                    $finalPrice = max(0, $basePrice - $discount);
+                @endphp
+
                 <div class="ss_cart-product-item">
                     <div class="ss_cart-product-info">
                         <input type="checkbox" class="ss_cart-product-checkbox ss_cart-checkbox">
@@ -53,20 +59,26 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="ss_cart-product-price">
-                        <span class="ss_cart-original-price text-muted text-decoration-line-through">
-                            ₫{{ number_format($item->price + 100000) }}
-                        </span>
-                        <span class="ss_cart-current-price">₫{{ number_format($item->price) }}</span>
+                        @if ($discount > 0)
+                            <span class="ss_cart-original-price text-muted text-decoration-line-through">
+                                ₫{{ number_format($basePrice) }}
+                            </span>
+                        @endif
+                        <span class="ss_cart-current-price">₫{{ number_format($finalPrice) }}</span>
                     </div>
+
                     <div class="ss_cart-quantity-control" data-id="{{ $item->id }}">
                         <button class="ss_cart-qty-btn ss_cart-minus">-</button>
                         <input type="number" value="{{ $item->quantity }}" class="ss_cart-qty-input" readonly>
                         <button class="ss_cart-qty-btn ss_cart-plus">+</button>
                     </div>
+
                     <div class="ss_cart-product-total" data-id="{{ $item->id }}">
-                        ₫<span class="item-total">{{ number_format($item->price * $item->quantity) }}</span>
+                        ₫<span class="item-total">{{ number_format($finalPrice * $item->quantity) }}</span>
                     </div>
+
                     <div class="ss_cart-product-actions">
                         <form action="{{ route('delete.cart', ['product' => $item->id]) }}" method="POST">
                             @csrf
@@ -92,7 +104,7 @@
             </div>
         </div>
 
-        <!-- Shopee Voucher Section -->
+        <!-- Voucher Form -->
         <div class="ss_cart-shopee-voucher">
             <i class="fas fa-gift ss_cart-voucher-gift-icon"></i>
             <span>Voucher</span>
@@ -108,7 +120,6 @@
                 <p class="text-danger mt-1">{{ $errors->first('coupon_code') }}</p>
             @endif
 
-            <!-- Hiển thị kết quả giảm giá -->
             @if (session('discount_amount'))
                 <p class="text-success mt-1">Đã áp dụng mã! Giảm
                     {{ number_format(session('discount_amount'), 0, ',', '.') }}đ</p>
@@ -125,9 +136,15 @@
             </div>
             <div class="ss_cart-right-actions">
                 @php
-                    $cartTotal = collect($cart)->sum(fn($item) => $item->price * $item->quantity);
+                    $cartTotal = collect($cart)->sum(function ($item) {
+                        $base = $item->base_price ?? $item->price;
+                        $discount = $item->discount ?? 0;
+                        $final = max(0, $base - $discount);
+                        return $final * $item->quantity;
+                    });
+
                     $discount = session('applied_coupon.discount_amount', 0);
-                    $discount = min($discount, $cartTotal); // tránh bị âm
+                    $discount = min($discount, $cartTotal);
                     $finalTotal = max(0, $cartTotal - $discount);
                 @endphp
 

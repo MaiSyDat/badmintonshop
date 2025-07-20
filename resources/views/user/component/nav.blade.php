@@ -61,7 +61,7 @@
                                     @foreach ($nameproduct as $item)
                                         <li>
                                             {{-- {{ route('brand.show', $brand->brand_id) }} --}}
-                                            <a href="" class="dropdown__link">
+                                            <a href="{{ route('product') }}" class="dropdown__link">
                                                 {{ $item->product_name }}
                                             </a>
                                         </li>
@@ -76,7 +76,7 @@
                                     @foreach ($brands as $brand)
                                         <li>
                                             {{-- {{ route('brand.show', $brand->brand_id) }} --}}
-                                            <a href="" class="dropdown__link">
+                                            <a href="{{ route('product') }}" class="dropdown__link">
                                                 {{ $brand->brand_name }}
                                             </a>
                                         </li>

@@ -24,6 +24,14 @@
             <div class="product-grid row">
                 @foreach ($wishlists as $wishlist)
                     @php $product = $wishlist->product; @endphp
+                    @php
+                        $variant = $product->variants->first();
+                        $discount = $variant->discount ?? 0;
+                        $basePrice = $product->base_price;
+
+                        $finalPrice = max(0, $basePrice - $discount); // không để âm
+                        $discountPercent = $basePrice > 0 ? round(($discount / $basePrice) * 100) : 0;
+                    @endphp
                     <div class="mb-20 col l-4 m-4 c-6 wishlist-item" data-product-id="{{ $product->product_id }}">
                         <div class="product-card">
                             <div class="product-image">
@@ -34,9 +42,9 @@
                                 <button class="wishlist-btn active" data-product-id="{{ $product->product_id }}">
                                     <svg viewBox="0 0 24 24" stroke-width="2" style="fill: red; stroke: red;">
                                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06
-                                                                        a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12
-                                                                        21.23l7.78-7.78 1.06-1.06a5.5 5.5 0
-                                                                        0 0 0-7.78z">
+                                                                                a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12
+                                                                                21.23l7.78-7.78 1.06-1.06a5.5 5.5 0
+                                                                                0 0 0-7.78z">
                                         </path>
                                     </svg>
                                 </button>
@@ -48,7 +56,7 @@
                                     <div class="color-dot blue"></div>
                                 </div>
                                 <div class="product-name">{{ $product->product_name }}</div>
-                                <div class="product-price">{{ number_format($product->base_price, 0, ',', '.') }}₫</div>
+                                <div class="product-price"> {{ number_format($finalPrice, 0, ',', '.') }}₫</div>
                                 <a href="{{ route('product-detail', $product->product_id) }}"
                                     class="buy-now-btn btn-primary">Mua ngay</a>
                             </div>

@@ -37,6 +37,12 @@ class Cart extends Model
 
     public function add($product, $quantity = 1)
     {
+        // Lấy biến thể đầu tiên để lấy giá giảm (giống product_detail)
+        $variant = $product->variants->first();
+        $discount = $variant->discount ?? 0;
+        $basePrice = $product->base_price;
+        $finalPrice = max(0, $basePrice - $discount);
+
         if (isset($this->items[$product->product_id])) {
             $this->items[$product->product_id]->quantity += $quantity;
         } else {
@@ -44,7 +50,9 @@ class Cart extends Model
                 'id' => $product->product_id,
                 'img' => $product->main_image_url,
                 'name' => $product->product_name,
-                'price' => $product->base_price,
+                'price' => $finalPrice,
+                'base_price' => $basePrice,
+                'discount' => $discount,
                 'quantity' => $quantity,
             ];
             $this->items[$product->product_id] = $cart_Item;
