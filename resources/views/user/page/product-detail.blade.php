@@ -246,7 +246,7 @@
                                                 <div class="form-group mb-2">
                                                     <label for="rating">Đánh giá:</label>
                                                     <div class="product-detail-rating__stars">
-                                                        @for ($i = 1; $i <= 5; $i++)
+                                                        @for ($i = 5; $i >= 1; $i--)
                                                             <input type="radio" name="rating"
                                                                 id="star{{ $i }}" value="{{ $i }}"
                                                                 required hidden>
@@ -255,15 +255,19 @@
                                                         @endfor
                                                     </div>
                                                 </div>
+
                                                 <div class="form-group mb-2">
                                                     <label for="comment">Bình luận:</label>
                                                     <textarea name="comment" class="form-control" rows="3" required></textarea>
                                                 </div>
-                                                <button class="product-detail-btn product-detail-btn--primary">Gửi đánh
-                                                    giá</button>
+
+                                                <button class="product-detail-btn product-detail-btn--primary">
+                                                    Gửi đánh giá
+                                                </button>
                                             </form>
                                         @endif
                                     @else
+                                        <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để gửi đánh giá.</p>
                                     @endauth
                                 </div>
 

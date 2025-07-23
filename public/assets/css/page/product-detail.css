@@ -252,6 +252,44 @@
     color: #ffc107;
 }
 
+.product-detail-reviews__form .product-detail-rating__stars {
+    display: flex;
+    flex-direction: row-reverse; /* đảo ngược thứ tự hiển thị để xử lý hiệu ứng sao đúng */
+    justify-content: flex-start;
+    gap: 4px;
+}
+
+.product-detail-reviews__form .product-detail-rating__star {
+    font-size: 28px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+/* Ẩn radio button */
+.product-detail-reviews__form
+    .product-detail-rating__stars
+    input[type="radio"] {
+    display: none;
+}
+
+/* Khi rê chuột vào label */
+.product-detail-reviews__form .product-detail-rating__stars label:hover,
+.product-detail-reviews__form
+    .product-detail-rating__stars
+    label:hover
+    ~ label {
+    color: #ffc107;
+}
+
+/* Khi đã chọn sao */
+.product-detail-reviews__form
+    .product-detail-rating__stars
+    input[type="radio"]:checked
+    ~ label {
+    color: #ffc107;
+}
+
 /* Form bình luận */
 .form-control {
     width: 100%;
